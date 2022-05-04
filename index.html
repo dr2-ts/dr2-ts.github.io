@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-T56SD8D');</script> -->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="Immerse yourself in a beautiful and calming 2D Web-based game. Collect coins, unlock characters and backgrounds, all while listening to Droply's soothing soundtrack.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="/css/setup.css">
+    <link rel="stylesheet" href="/css/utility.css">
+    <link rel="stylesheet" href="/css/keyframes.css">
+    <link rel="stylesheet" href="/css/droply.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-X74P752M6F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-X74P752M6F');
+    </script>
+     -->
+
+    <title>Droply</title>
+</head>
+<body>
+<!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T56SD8D" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript> -->
+
+    <div class="game-container">
+        <div class="reward-announncement">
+            +<span class="reward-announncement-number"></span> Coins Gift!
+        </div>
+
+        <div class="home small-display move-main-button-away main-button">
+            <span class="small-display-icon ga-home"><img src="/assets/icons/home.svg"></span>
+            <span class="small-display-text ga-home">Home</span>
+        </div>
+
+        <div class="settings small-display main-button">
+            <span class="small-display-icon ga-settings"><img src="assets/icons/user.svg" style="width:12px"></span>
+            <span class="small-display-text ga-settings">Profile</span>
+        </div>
+
+        <div class="hearts small-display">
+
+        </div>
+
+        <div class="coins small-display">
+            <span class="small-display-icon"><img src="/assets/icons/coin.svg"></span>
+            <span class="small-display-text">0</span>
+        </div>
+        <div class="shields small-display">
+            <span class="small-display-icon"><img src="/assets/icons/shield.svg"></span>
+            <span class="small-display-text">0</span>
+        </div>
+        
+
+        <div class="game-details">
+            
+            <button class="game-details-action-buttons button-announcements ga-announcements"></button>
+            <!-- <button class="game-details-action-buttons button-messages ga-messages"></button> -->
+            <!-- <button class="game-details-action-buttons button-awards ga-awards"></button> -->
+            <button class="game-details-action-buttons button-shop ga-shop"></button>
+            
+            
+                <button class="start ga-start button-primary">Start Game</button>
+                <div class="connectivity-alert display-none">
+                    📡 No Internet Connection
+                </div>
+                <div class="a-placement">
+                    <a href='' target="_blank">
+                        <div class="a-placement-container">
+                            <div class="a-placement-image ga-a-placement">
+                            </div>
+                            <div class="a-placement-title ga-a-placement"></div>
+                        </div>
+                    </a>
+                </div>
+
+ 
+                <div class="audio-controls">
+                    <button class="music ga-music button-regular button-regular-off">🎵 Music Off</button>
+                    <button class="sfx ga-sfx button-regular button-regular-off">🔈 SFX Off</button>
+                </div>
+                <div class="loading-auto-ready-state"></div>
+
+                <small class="version-release"></small>
+        </div>
+
+        <div class="player-character"><img src="/assets/characters/Characters-01.svg"></div>
+
+        <div class="obstacles"></div>
+
+
+    </div>
+
+
+
+
+    <div class="slidercontainer">
+        <input type="range" min="5" max="95" value="50" class="slider" id="Slider">
+    </div>
+
+
+
+    <div class="pause-module">
+        <h3>You hit an obstacle!</h3>
+        <div class="restart-game">
+            <button class="button-primary ga-restart-game">Restart Game</button>
+            <p>Oh no! You lost all your hearts! Start again fresh with no coins and a full set of hearts.</p>
+        </div>
+
+        <div class="continue-game">
+            <button class="button-primary ga-continue-game">Continue Game</button>
+            <p>No worries! You can continue the game. But don't forget to buy hearts from the shop before they're all gone!</p>
+        </div>
+        
+    </div>
+
+
+    <div class="successful-purchase-alert">Success!</div>
+
+    <div class="shop-window">
+        <div class="shop-window-inner-container">
+
+
+            <div class="shop-window-header">
+                <div class="shop-window-header-box shop-window-close ga-shop-close"></div>
+                <div class="shop-window-header-logo"></div>
+            </div>
+
+
+            
+            <div class="shop-window-player-name">
+                
+                Hello, <span class="player-name"></span>!
+                <span class="pro-user display-none">PRO <img src="/assets/images/pro-badge.svg"></span>
+            </div>
+
+            <div class="shop-window-main display-none">
+                <div class="shop-window-main-title">
+                    New Droply Stickers Collection Out
+                </div>
+                <div class="shop-window-main-cta">
+                    <button class="shop-window-main-cta-button ga-shop-main-cta button-secondary">Check it Out</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-top">
+                    <div class="section-header">
+                        <span class="section-header-icon"></span>
+                        <span class="section-header-title">Special</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-content-box special">
+                        <div class="section-box buy-hearts-box">
+                            <div class="section-placeholder buy-hearts ga-buy-hearts"></div>
+                            <div class="section-details">
+                                <div class="section-name ga-buy-hearts">Heart</div>
+                                <span class='small-display-icon section-price-icon'><img
+                                        src='/assets/icons/coin.svg'></span>
+                                <div class="section-coins"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section section-universe">
+                <div class="section-top">
+                    <div class="section-header">
+                        <span class="section-header-icon"></span>
+                        <span class="section-header-title section-universe-title">Droply's Universe</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section">
+                        <div class="section-top">
+                            <div class="section-header">
+                                <span class="section-header-icon"></span>
+                                <span class="section-header-title">Characters</span>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="section-content-box characters droply-universe-characters"></div>
+                        </div>
+                    </div>
+        
+                    <div class="section">
+                        <div class="section-top">
+                            <div class="section-header">
+                                <span class="section-header-icon"></span>
+                                <span class="section-header-title">Backgrounds</span>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="section-content-box backgrounds droply-universe-backgrounds"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="section section-universe">
+                <div class="section-top">
+                    <div class="section-header">
+                        <span class="section-header-icon"></span>
+                        <span class="section-header-title section-universe-title">Darpella</span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section">
+                        <div class="section-top">
+                            <div class="section-header">
+                                <span class="section-header-icon"></span>
+                                <span class="section-header-title">Characters</span>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="section-content-box characters darpella-characters"></div>
+                        </div>
+                    </div>
+        
+                    <div class="section">
+                        <div class="section-top">
+                            <div class="section-header">
+                                <span class="section-header-icon"></span>
+                                <span class="section-header-title">Backgrounds</span>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="section-content-box backgrounds darpella-backgrounds"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+            <div class="section display-none">
+                <div class="section-top">
+                    <div class="section-header">
+                        <span class="section-header-icon"></span>
+                        <span class="section-header-title">Our Store <span class="pro-user display-none">PRO</span></span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-content-box virtualstore"></div>
+                </div>
+            </div>
+
+            <div class="invisible"></div>
+
+            <div class="section">
+                <div class="section-top">
+                    <div class="section-header">
+                        <span class="section-header-icon"></span>
+                        <span class="section-header-title"></span>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="section-content-box"></div>
+                </div>
+            </div>
+
+            <div class="shop-player-stats display-none">
+                <div class="shop-player-stats-hearts"></div>
+                <div class="shop-player-stats-coins">
+                    <span class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></span>
+                    <span class='section-coins'></span>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <div class="music-container">
+        <audio loop>
+            <source src="/assets/audio/droplysoundtrack.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+
+    <div class="sfx-container">
+        <audio loop>
+            <source src="/assets/audio/wind.mp3" type="audio/mp3">
+        </audio>
+
+        <audio>
+            <source src="/assets/audio/endgame.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+
+    <div class="alert-modal display-none">
+        <div class="alert-box">
+            <div class="alert-header">Clear All Data?</div>
+            <div class="alert-content">
+                <p>This action is irreversible. You will lose all your coins and purchases.</p>
+            </div>
+            <div class="alert-cta-secondary">
+                <button class="ga-cancel-clear-data">Cancel</button>
+            </div>
+            <div class="alert-cta">
+                <button class="ga-confirm-clear-data">Yes, clear data.</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="announcement-window">
+        <div class="announcement-close ga-announcements-close"></div>
+
+        <div class="announcement-inner-container">
+            <div class="announcement-container-header"><img src="/assets/icons/notification.svg" width="15"> Announcements</div>
+
+
+            <div class="announcements-container">
+                
+
+                
+            </div>
+            
+            <div class="invisible"></div>
+        </div>
+        
+    </div>
+
+
+    <div class="settings-window">
+        <div class="settings-container">
+            <div class="settings-close ga-settings-close"></div>
+            <div class="settings-header">Profile</div>
+            <div class="settings-section settings-name-section">
+                <div class="settings-name-section-title settings-section-title">🌊 Change Name</div>
+                <input type="text" class="settings-name-change-input ga-settings-input-name" maxlength="28">
+                <button class="update-name button-regular ga-update-name">Update Name</button>
+            </div>
+
+            <div class="settings-section referral-section">
+                <div class="settings-section-title"><img src="/assets/icons/coin.svg"> Referral Program</div>
+                <div class="refer-status">
+                    <h4>Refer 3 People</h4>
+                    <div class="can-refer">Refer 3 people and get <img src="/assets/icons/coin.svg"> <strong>70 coins</strong>!
+                        <br>
+                        <a target="_blank" href="https://forms.gle/kn66VJZKwiyZv29R9"><button class="refer-now ga-refer-button button-regular">Refer Now!</button></a>
+                    </div>
+                    <div class="refer-used display-none">You have successfully referred 3 people and have received <img src="/assets/icons/coin.svg"> 70 coins!</div>
+                </div>
+                <br>
+                <div class="referred-status">
+                    <h4>Get Referred</h4>
+                    <div class="not-referred">If someone refers you, you will get <img src="/assets/icons/coin.svg"> <strong>20 coins</strong>! Let them know!</div>
+                    <div class="referred display-none">Someone referred you and you got <img src="/assets/icons/coin.svg"> 20 coins! </div>
+                </div>
+                
+
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">☔️ Help & Support</div>
+                <a href="help/help.html#OurStory"><div class="settings-title ga-our-story">Our Story</div></a>
+                <a href="help/help.html#FAQ"><div class="settings-title ga-faq">Frequently Asked Questions</div></a>
+                <a href="help/help.html"><div class="settings-title ga-our-story">Help Section</div></a>
+                <a href="mailto:hellodroplyteam@gmail.com"><div class="settings-title ga-contact-us">Contact Us</div></a>
+                <a href="mailto:hellodroplyteam@gmail.com"><div class="settings-title ga-report-bug">Report a Bug</div></a>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">💧 Unique ID</div>
+                <div class="unique-id-number"></div>
+            </div>
+
+            <div class="settings-section my-data display-none">
+                <div class="settings-section-title">⭐️ My Data <span class="pro-user display-none">PRO</span></div>
+                <div class="settings-sub-section">
+                    <h5>Export Data</h5>
+                    <button class="button-regular ga-export-data export-my-data">🌧 Download My Data</button>
+                </div>
+
+
+                <div class="settings-sub-section">
+                    <h5>Import Data</h5>
+                    <label for="file-upload" class="button-regular ga-import-data custom-file-upload import-my-data">
+                        ☁️ Upload My Data
+                    </label>
+                    <input id="file-upload" class="file-upload-button display-none" type="file" />
+                </div>
+
+            </div>
+
+            <div class="settings-section settings-section-danger">
+                <div class="settings-section-title">🚨 Danger Zone</div>
+                <button class="settings-clear-data button-regular-danger ga-clear-data">Delete My Data</button>
+            </div>
+            <small class="version-release"></small>
+            <div class="invisible"></div>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="/js/logic.js"></script>
+    
+    <script>
+         if ('serviceWorker' in navigator) {
+            console.log("Will the service worker register?");
+            navigator.serviceWorker.register('service-worker.js')
+              .then(function(reg){
+                console.log("Yes, it did.");
+             }).catch(function(err) {
+                console.log("No it didn't. This happened:", err)
+            });
+         }
+    </script>
+
+</body>
+</html>

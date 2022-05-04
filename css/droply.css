@@ -1,0 +1,13 @@
+html, body{
+    overflow:hidden;
+}
+
+body{
+    position: fixed;
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+    -webkit-overflow-scrolling: touch;
+    font-family: var(--main-type);
+}
