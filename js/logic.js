@@ -93,7 +93,6 @@ $(document).ready(function(){
             $(".demo-message-body").addClass("demo-message-hide");
             $(".demo-message-header-icon").addClass("rotate-close-icon");
         }
-        
     });
 
     HandleLocalStorage();
@@ -110,7 +109,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.0";
+    let version_release = "droply 1.4.1";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
