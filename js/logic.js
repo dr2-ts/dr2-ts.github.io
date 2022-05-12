@@ -25,7 +25,7 @@ const SHIELD_ABUNDANCE = 0.1;
 const POUCH_ABUNDANCE = 0.1;
 const HEART_PRICE = 30;
 
-
+var DEMO = false;
 
 
 // Variables
@@ -76,6 +76,25 @@ var sfx_first_time = true;
 
 $(document).ready(function(){
 
+    var href = window.location.href;
+    var url = href.split("?");
+    if(url[1] == "mode=standalone"){
+        DEMO = false;
+    }else{
+        DEMO = true;
+        ActivateDemo();
+    }
+
+    $(".demo-message-header").click(function(){
+        if( $(".demo-message-body").hasClass("demo-message-hide")){
+            $(".demo-message-body").removeClass("demo-message-hide");
+            $(".demo-message-header-icon").removeClass("rotate-close-icon");
+        }else{
+            $(".demo-message-body").addClass("demo-message-hide");
+            $(".demo-message-header-icon").addClass("rotate-close-icon");
+        }
+        
+    });
 
     HandleLocalStorage();
     ShowAnnouncement();
@@ -130,9 +149,9 @@ $(document).ready(function(){
         ClearLoop();
         SpeedIncrease = 0;
 
-        Home.addClass("move-main-button-away");
+        Home.addClass("display-none");
 
-        $(".settings").removeClass("move-main-button-away");
+        $(".settings").removeClass("display-none");
 
         GameDetails.removeClass("slide-down");
         SliderContainer.removeClass("slider-slide-up");
@@ -429,8 +448,8 @@ function StartGame(){
         });
     }
 
-    Home.removeClass("move-main-button-away");
-    $(".settings").addClass("move-main-button-away");
+    Home.removeClass("display-none");
+    $(".settings").addClass("display-none");
 
 
     NewWave(); 
@@ -705,10 +724,10 @@ function PauseGame(){
     }
 
     $(".pause-module").addClass("pause-module-slide-up");
-    $(".home").addClass("move-main-button-away");
+    $(".home").addClass("display-none");
 
-    if(!$(".settings").hasClass("move-main-button-away")){
-        $(".settings").addClass("move-main-button-away");
+    if(!$(".settings").hasClass("display-none")){
+        $(".settings").addClass("display-none");
     }
 
     if(!GameDetails.hasClass("slide-down")){
@@ -1321,4 +1340,8 @@ function HandleGiveAways(){
 
 
 
+}
+
+function ActivateDemo(){
+    $(".demo-message").removeClass("display-none");
 }

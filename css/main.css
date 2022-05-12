@@ -1,13 +1,49 @@
 
 
+.demo-message{
+    padding:20px 30px;
+}
 
+.demo-message-header{
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.demo-message-header-title{
+    flex-grow: 1;
+    font-weight:600;
+}
+.demo-message-header-icon img{
+    width:10px;
+}
 
+.demo-message-body{
+    font-size:12px;
+}
+
+.demo-message-hide{
+    height:0px !important;
+    display:none;
+}
+.rotate-close-icon{
+    transform: rotate(45deg);
+    transform-origin: center;
+}
 
 
 
 /* Coin & Shield Display Counter */
+.small-displays-container{
+    width:90%;
+    margin:10px auto;
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.small-displays-box-right{
+    flex-grow: 1;
+}
 .small-display{
-    position:fixed;
     border-radius:10px;
     background:rgba(255, 255, 255, 0.98);
     font-weight: 600;
@@ -16,6 +52,8 @@
     padding:7px 20px 5px 20px;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
+    margin:10px 0;
+    width:100px;
 }
 
 .small-display-icon img{
@@ -411,7 +449,7 @@
     width:90%;
     border-radius:20px;
     margin:30px auto;
-    background:url(https://cdn.dribbble.com/users/2256359/screenshots/15433092/media/311b79dd55ecde91f8096d9e49dc2577.jpg?compress=1&resize=1600x1200) center center no-repeat;
+    /* background:url(https://cdn.dribbble.com/users/2256359/screenshots/15433092/media/311b79dd55ecde91f8096d9e49dc2577.jpg?compress=1&resize=1600x1200) center center no-repeat; */
     background-size:cover;
     box-sizing: border-box;
 }
@@ -785,11 +823,14 @@ margin-top:20px;
 } */
 
 
-.move-main-button-away{
+/* .move-main-button-away{
     left:-100%;
     transition:left .5s ease-in-out;
-}
+} */
 
+/* .display-none{
+    display:none;
+} */
 
 .not-referred, .can-refer{
     color:var(--clr-primary-light);
@@ -829,7 +870,7 @@ margin-top:20px;
 .a-placement-image{
     width:30%;
     overflow: hidden;
-    background: url(https://cdn.dribbble.com/users/39609/screenshots/16178448/media/6dde09fbdb671d3daea3a867979171fd.jpg?compress=1&resize=1600x1200) center center no-repeat;
+    /* background: url(https://cdn.dribbble.com/users/39609/screenshots/16178448/media/6dde09fbdb671d3daea3a867979171fd.jpg?compress=1&resize=1600x1200) center center no-repeat; */
     background-size: cover;
     border-radius:10px 0 0 10px;
 }
