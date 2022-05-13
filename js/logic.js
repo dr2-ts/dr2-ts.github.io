@@ -18,12 +18,13 @@ import * as GiveAway from '../data/giveaway.js';
 // Constants
 const OBSTACLES = 15;
 const OBSTACLES_MAX_Y = 5000;
-const TIME = 120;
-const SPEED_INCREASE = 10;
+const TIME = 130;
+const SPEED_INCREASE = 15;
 const COIN_ABUNDANCE = 0.5;
 const SHIELD_ABUNDANCE = 0.1;
 const POUCH_ABUNDANCE = 0.1;
 const HEART_PRICE = 30;
+const SHIELD_DAMAGE = 20;
 
 var DEMO = false;
 
@@ -72,6 +73,8 @@ var sfx_on = false;
 var music_first_time = true;
 var sfx_first_time = true;
 
+var shield_damaged = false;
+
 
 
 $(document).ready(function(){
@@ -109,7 +112,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.1";
+    let version_release = "droply 1.4.2";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -525,7 +528,7 @@ function CreateObstacles(){
                 if(shieldchance == 0){
                     $obstacle = $("<div class='obstacle shield' style='top:" + top + "px;left:" + left + "px'></div>");
                 }else{
-                    $obstacle = $("<div class='obstacle obstacle-bomb' style='top:" + top + "px;left:" + left + "px'></div>");  
+                    $obstacle = $("<div class='obstacle obstacle-rock' style='top:" + top + "px;left:" + left + "px'></div>");  
                 }
             }
         }else{
@@ -647,14 +650,14 @@ function CheckCollision(){
                         currentChild.remove();
 
                     }else if(currentChild.hasClass("pouch")){
-                        Player.AddCoins(50);
+                        Player.AddCoins(20);
 
                         let player_coins = Player.GetWallet();
 
                         $(".coins > .small-display-text").text(player_coins);
                         currentChild.remove();
 
-                    }else if(currentChild.hasClass("shield") && !PlayerCharacter.hasClass("shield-active")){
+                    }else if(currentChild.hasClass("shield") && !PlayerCharacter.hasClass("shield-active") && !shield_damaged){
                         PlayerCharacter.addClass("shield-active");
                         let tempshieldcounter = 0;
                         if(Player.player.isPro == true){
@@ -693,12 +696,33 @@ function CheckCollision(){
 
                         
 
-                    }else{
-                        if(!PlayerCharacter.hasClass("shield-active")){
-                            PauseGame();
-                        }
+                    }else if(currentChild.hasClass("obstacle-bomb") && !PlayerCharacter.hasClass("shield-active") && !shield_damaged){
+                        currentChild.remove();
+                        $(".shields").addClass("shield-damaged");
+                        let tempshieldcounter = SHIELD_DAMAGE;
+                        var ShieldCounterFunction = function(){
+
+                            if(tempshieldcounter > 0){
+                                shield_damaged = true;
+                                $(".shields .small-display-text").text(tempshieldcounter);
+                                tempshieldcounter--;
+                                setTimeout(ShieldCounterFunction, 1000);
+                            }else{
+                                $(".shields .small-display-text").text("0");
+                                $(".shields").removeClass("shield-damaged");
+                                shield_damaged = false;
+                                console.log(shield_damaged);
+                            }
+                        };
+
+                        setTimeout(ShieldCounterFunction, 1000);
+
+                    }else if(currentChild.hasClass("shield") && !PlayerCharacter.hasClass("shield-active") && shield_damaged){
+                        
+                    }else if(currentChild.hasClass("obstacle-rock") && !PlayerCharacter.hasClass("shield-active")){
+                        PauseGame();
                     }
-    
+                    console.log(shield_damaged);
                 }
     
             }

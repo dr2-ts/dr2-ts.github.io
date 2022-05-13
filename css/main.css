@@ -2,6 +2,7 @@
 
 .demo-message{
     padding:20px 30px;
+    background:var(--clr-neutral-100);
 }
 
 .demo-message-header{
@@ -318,6 +319,10 @@
 
 .shield-display-show{
     background:#ffedab;
+}
+
+.shield-damaged{
+    background:#ff5b5b;
 }
 
 
