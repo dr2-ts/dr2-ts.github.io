@@ -27,7 +27,7 @@ const HEART_PRICE = 30;
 const SHIELD_DAMAGE = 20;
 
 var DEMO = false;
-
+var demo_coin_limit = 30;
 
 // Variables
 var PlayerCharacter = $(".player-character");
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.2";
+    let version_release = "droply 1.4.3";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -642,99 +642,131 @@ function CheckCollision(){
                 if(CollisionStatus === true){
     
                     if(currentChild.hasClass("coin")){
-                        Player.AddCoins(1);
-
-                        let player_coins = Player.GetWallet();
-
-                        $(".coins > .small-display-text").text(player_coins);
-                        currentChild.remove();
+                        AddCoin(currentChild);
 
                     }else if(currentChild.hasClass("pouch")){
-                        Player.AddCoins(20);
-
-                        let player_coins = Player.GetWallet();
-
-                        $(".coins > .small-display-text").text(player_coins);
-                        currentChild.remove();
+                        AddPouch(currentChild);
 
                     }else if(currentChild.hasClass("shield") && !PlayerCharacter.hasClass("shield-active") && !shield_damaged){
-                        PlayerCharacter.addClass("shield-active");
-                        let tempshieldcounter = 0;
-                        if(Player.player.isPro == true){
-                            tempshieldcounter = shieldCounter + 10;
-                        }else{
-                            tempshieldcounter = shieldCounter;
-                        }
+                        AddShield();
                         
-
-                                $(".shields").addClass("shield-display-show");
-
-                                $('.obstacles').find('.shield').remove();
-
-
-                                var ShieldCounterFunction = function(){
-
-                                    if(tempshieldcounter > 0){
-                                        if(!$(".player-character").hasClass("shield-animation")){
-                                            $(".player-character").addClass("shield-animation");
-                                        }
-                                        $(".shields .small-display-text").text(tempshieldcounter);
-                                        tempshieldcounter--;
-                                        setTimeout(ShieldCounterFunction, 1000);
-                                    }else{
-                                        tempshieldcounter = shieldCounter;
-                                        $(".shields .small-display-text").text("0");
-                                        $(".shields").removeClass("shield-display-show");
-                                        PlayerCharacter.removeClass("shield-active");
-                                        $(".player-character").removeClass("shield-animation");
-
-                                    }
-                                };
-
-                                setTimeout(ShieldCounterFunction, 1000);
-
-
-                        
-
                     }else if(currentChild.hasClass("obstacle-bomb") && !PlayerCharacter.hasClass("shield-active") && !shield_damaged){
-                        currentChild.remove();
-                        $(".shields").addClass("shield-damaged");
-                        let tempshieldcounter = SHIELD_DAMAGE;
-                        var ShieldCounterFunction = function(){
-
-                            if(tempshieldcounter > 0){
-                                shield_damaged = true;
-                                $(".shields .small-display-text").text(tempshieldcounter);
-                                tempshieldcounter--;
-                                setTimeout(ShieldCounterFunction, 1000);
-                            }else{
-                                $(".shields .small-display-text").text("0");
-                                $(".shields").removeClass("shield-damaged");
-                                shield_damaged = false;
-                                console.log(shield_damaged);
-                            }
-                        };
-
-                        setTimeout(ShieldCounterFunction, 1000);
+                        AddBomb(currentChild);
 
                     }else if(currentChild.hasClass("shield") && !PlayerCharacter.hasClass("shield-active") && shield_damaged){
                         
                     }else if(currentChild.hasClass("obstacle-rock") && !PlayerCharacter.hasClass("shield-active")){
                         PauseGame();
                     }
-                    console.log(shield_damaged);
+
+                    if(DEMO){
+                        DemoBlock();
+                    }
                 }
-    
+
+
             }
 
-    }, 16);
+        }, 16);
+    }
+
+    
+
+}
+
+function DemoBlock(){
+    let playerwallet = Player.GetWallet();
+    console.log("over the limit");
+    if(playerwallet > demo_coin_limit){
+        Player.ResetWallet();
+        Player.AddCoins(demo_coin_limit);
+        let playerwalletupdated = Player.GetWallet();
+        $(".coins > .small-display-text").text(playerwalletupdated);
+        $(".coins").addClass("demo-coin-limit");
+    }else{
+        $(".coins").removeClass("demo-coin-limit");
+    }
+}
+
+function AddCoin(currentChild){
+    Player.AddCoins(1);
+
+    let player_coins = Player.GetWallet();
+
+    $(".coins > .small-display-text").text(player_coins);
+    currentChild.remove();
+
+}
+
+function AddPouch(currentChild){
+    Player.AddCoins(20);
+
+    let player_coins = Player.GetWallet();
+
+    $(".coins > .small-display-text").text(player_coins);
+    currentChild.remove();
+}
+
+function AddShield() {
+    PlayerCharacter.addClass("shield-active");
+    let tempshieldcounter = 0;
+    if (Player.player.isPro == true) {
+        tempshieldcounter = shieldCounter + 10;
+    } else {
+        tempshieldcounter = shieldCounter;
     }
 
 
+    $(".shields").addClass("shield-display-show");
+
+    $('.obstacles').find('.shield').remove();
+
+
+    var ShieldCounterFunction = function () {
+
+        if (tempshieldcounter > 0) {
+            if (!$(".player-character").hasClass("shield-animation")) {
+                $(".player-character").addClass("shield-animation");
+            }
+            $(".shields .small-display-text").text(tempshieldcounter);
+            tempshieldcounter--;
+            setTimeout(ShieldCounterFunction, 1000);
+        } else {
+            tempshieldcounter = shieldCounter;
+            $(".shields .small-display-text").text("0");
+            $(".shields").removeClass("shield-display-show");
+            PlayerCharacter.removeClass("shield-active");
+            $(".player-character").removeClass("shield-animation");
+
+        }
+    };
+
+    setTimeout(ShieldCounterFunction, 1000);
 
 
 }
 
+function AddBomb(currentChild){
+    currentChild.remove();
+    $(".shields").addClass("shield-damaged");
+    let tempshieldcounter = SHIELD_DAMAGE;
+    var ShieldCounterFunction = function(){
+
+        if(tempshieldcounter > 0){
+            shield_damaged = true;
+            $(".shields .small-display-text").text(tempshieldcounter);
+            tempshieldcounter--;
+            setTimeout(ShieldCounterFunction, 1000);
+        }else{
+            $(".shields .small-display-text").text("0");
+            $(".shields").removeClass("shield-damaged");
+            shield_damaged = false;
+            console.log(shield_damaged);
+        }
+    };
+
+    setTimeout(ShieldCounterFunction, 1000);
+}
 
 
 function PauseGame(){
