@@ -16,10 +16,10 @@ import * as RefT from '../data/ref/ref_t.js';
 import * as GiveAway from '../data/giveaway.js';
 
 // Constants
-const OBSTACLES = 15;
+const OBSTACLES = 200;
 const OBSTACLES_MAX_Y = 5000;
 const TIME = 130;
-const SPEED_INCREASE = 15;
+const SPEED_INCREASE = 12;
 const COIN_ABUNDANCE = 0.5;
 const SHIELD_ABUNDANCE = 0.1;
 const POUCH_ABUNDANCE = 0.1;
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.3";
+    let version_release = "droply 1.4.4";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -368,6 +368,12 @@ function HandleLocalStorage(){
         Player.player["awards"] = LocalStoragePlayer["awards"];
         Player.player["level"] = LocalStoragePlayer["level"];
 
+        if(LocalStoragePlayer["diamonds"] == undefined){
+            Player.player["diamonds"] = 0;
+            localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
+        } else{
+            Player.player["diamonds"] = LocalStoragePlayer["diamonds"]; 
+        }
 
         CoinsText.text(Player.player["wallet"]);
         $(".unique-id-number").text(Player.player["id"]);
@@ -467,6 +473,7 @@ function NewWave(){
     ClearObstacles();
     CreateObstacles();
     FloatObstacles();
+    PlayerCharacter.addClass("shield-active");
     CheckCollision();
 }
 
@@ -495,7 +502,9 @@ function ClearHearts(){
 function CreateObstacles(){
 
     let coinchance = Functions.getRandomInteger(0, 3);
-    let shieldchance = Functions.getRandomInteger(0, 3);
+    let shieldchance = Functions.getRandomInteger(0, 99);
+    let coinpouchchance = Functions.getRandomInteger(0, 99);
+    let diamondchance = Functions.getRandomInteger(0, 99); 
 
     for(let i = 0; i < OBSTACLES; i++){
         let top = Functions.getRandomInteger(WindowHeight, OBSTACLES_MAX_Y);
@@ -504,33 +513,42 @@ function CreateObstacles(){
         let coinnumber = OBSTACLES*COIN_ABUNDANCE;
         let shieldnumber = OBSTACLES*SHIELD_ABUNDANCE;
         let pouchnumber = OBSTACLES*POUCH_ABUNDANCE;
+        let diamondnumber = OBSTACLES*0.05;
 
-        let total_special_obstacles_number = coinnumber + shieldnumber + pouchnumber;
-
+        let total_special_obstacles_number = coinnumber + shieldnumber + pouchnumber + diamondnumber;
         let $obstacle;
 
-        let coinpouchchance = Functions.getRandomInteger(0, 3);
 
 
         if(i < total_special_obstacles_number){
-            console.log(coinnumber);
-            if(i < coinnumber){
-                if(coinchance == 0 || coinchance == 1 || coinchance == 2){
-                    console.log(coinchance);
+            if (i < coinnumber) {
+                if (coinchance == 0 || coinchance == 1 || coinchance == 2) {
                     $obstacle = $("<div class='obstacle coin' style='top:" + top + "px;left:" + left + "px'></div>");
-                }else if(coinpouchchance == 0){
-                    console.log("POUCH INCOMING");
+                }else{
+                    $obstacle = $("<div class='obstacle obstacle-rock' style='top:" + top + "px;left:" + left + "px'></div>");
+                }
+            }else if(i >= coinnumber && i < coinnumber + shieldnumber){
+                if(shieldchance <= 29){
+                    $obstacle = $("<div class='obstacle shield' style='top:" + top + "px;left:" + left + "px'></div>");
+                }else{
+                    $obstacle = $("<div class='obstacle obstacle-bomb' style='top:" + top + "px;left:" + left + "px'></div>");
+                }
+            }else if(i >= coinnumber + shieldnumber && i < coinnumber + shieldnumber + pouchnumber){
+                if(coinpouchchance <= 19){
                     $obstacle = $("<div class='obstacle pouch' style='top:" + top + "px;left:" + left + "px'></div>");
                 }else{
                     $obstacle = $("<div class='obstacle obstacle-rock' style='top:" + top + "px;left:" + left + "px'></div>");
                 }
-            }else if(i >= coinnumber && i < total_special_obstacles_number){
-                if(shieldchance == 0){
-                    $obstacle = $("<div class='obstacle shield' style='top:" + top + "px;left:" + left + "px'></div>");
+            }else if(i >= coinnumber + shieldnumber + pouchnumber && i < coinnumber + shieldnumber + pouchnumber + diamondnumber){
+                if(diamondchance <= 9){
+                    $obstacle = $("<div class='obstacle diamond' style='top:" + top + "px;left:" + left + "px'></div>");
                 }else{
-                    $obstacle = $("<div class='obstacle obstacle-rock' style='top:" + top + "px;left:" + left + "px'></div>");  
+                    $obstacle = $("<div class='obstacle obstacle-rock' style='top:" + top + "px;left:" + left + "px'></div>");
                 }
+            }else{
+                $obstacle = $("<div class='obstacle obstacle-rock' style='top:" + top + "px;left:" + left + "px'></div>");
             }
+            
         }else{
             let obstaclerandom = Functions.getRandomInteger(0, 2);
             if(obstaclerandom == 0){
@@ -676,7 +694,6 @@ function CheckCollision(){
 
 function DemoBlock(){
     let playerwallet = Player.GetWallet();
-    console.log("over the limit");
     if(playerwallet > demo_coin_limit){
         Player.ResetWallet();
         Player.AddCoins(demo_coin_limit);
@@ -761,7 +778,6 @@ function AddBomb(currentChild){
             $(".shields .small-display-text").text("0");
             $(".shields").removeClass("shield-damaged");
             shield_damaged = false;
-            console.log(shield_damaged);
         }
     };
 
@@ -998,7 +1014,11 @@ function FillRow(list, target){
         if(list[i].purchased){
             $targetcoins = $("<div class='section-coins " + list[i].class + "'>" + list[i].coins + "</div>");
         }else{
-            $targetcoins = $("<span class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></span><span class='section-coins " + list[i].class + "'>" + list[i].coins + "</span>");
+            if(list[i].diamonds){
+                $targetcoins = $("<span class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></span><span class='section-coins " + list[i].class + "'>" + list[i].coins + "</span><div class='diamonds-display'><span class='small-display-icon section-price-icon'><img src='/assets/icons/diamond.svg'></span><span class='section-diamonds " + list[i].class + "'>" + list[i].diamonds + "</span></div>");
+            }else{
+                $targetcoins = $("<span class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></span><span class='section-coins " + list[i].class + "'>" + list[i].coins + "</span>");
+            }
         }
 
         if(!list[i].purchased && player_wallet<list[i].coins){

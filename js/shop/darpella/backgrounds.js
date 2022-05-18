@@ -2,7 +2,8 @@ export const list = [
     {
         id:"BADARPELLA01",
         name: "EMTP",
-        coins: 0,
+        coins: 10,
+        diamonds: 1,
         image: "/assets/darpella/backgrounds/EMTP.svg",
         url:"",
         color_light: "#006cfa",

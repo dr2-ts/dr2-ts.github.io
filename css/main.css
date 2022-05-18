@@ -93,6 +93,19 @@
     font-size:.8rem !important;
 }
 
+.currencies{
+    display:flex;
+    align-items:center;
+}
+
+.currencies > div{
+    width:max-content;
+}
+
+.diamonds{
+    margin:0 3px 0 0;
+}
+
 .coins{
     right:10px;
     top:10px;
@@ -318,6 +331,11 @@
 
 .pouch{
     background:url(../assets/icons/coinpouch.svg) center center no-repeat;
+    background-size:contain;
+}
+
+.diamond{
+    background:url(../assets/icons/diamond.svg) center center no-repeat;
     background-size:contain;
 }
 
@@ -550,7 +568,8 @@
     font-weight:700;
 }
 
-.section-coins{
+.section-coins,
+.section-diamonds{
     white-space: pre-line;
     font-size: .9rem;
     font-weight:200;
