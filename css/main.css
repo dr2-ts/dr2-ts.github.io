@@ -161,7 +161,7 @@
 
 .successful-purchase-alert{
     position:fixed;
-    top:-100%;
+    bottom:-100%;
     left:50%;
     transform:translateX(-50%);
     padding:10px 50px;
@@ -170,13 +170,13 @@
     border:1px solid rgb(30, 116, 30);
     color:rgb(30, 116, 30);
     border-radius:10px;
-    transition: top .3s ease-in-out;
+    transition: bottom .7s cubic-bezier(.6,-0.01,.33,.98);
     z-index:901;
 }
 
 .show-successful-purchase-alert{
-    top:20px;
-    transition: top .3s ease-in-out;
+    bottom:40px;
+    transition: bottom .7s cubic-bezier(.6,-0.01,.33,.98);
 }
 
 
@@ -581,7 +581,7 @@
 }
 
 .selected > .section-placeholder{
-    border:1px solid var(--clr-primary-light) !important;
+    border:3px solid var(--clr-primary-light) !important;
 }
 
 .selected > .section-details{
@@ -590,7 +590,7 @@
 
 .purchased > .section-placeholder{
     background:var(--clr-neutral-100);
-    border:1px solid #efefef;
+    border:3px solid #efefef;
 }
 
 .purchased > .section-details{
@@ -619,19 +619,15 @@
 }
 
 .locked{
-    opacity:0.4;
+    opacity:0.2;
 }
 
 .shop-player-stats{
-    width: 90%;
-    bottom: 10px;
+    bottom: -5px;
     position: fixed;
-    border-radius: 10px;
-    background: var(--clr-neutral-100);
+    border-radius: 10px 10px 0 0;
+    background: var(--clr-primary-dark);
     padding: 20px 20px;
-    box-shadow: 1px 10px 110px 2px rgb(0 57 131 / 20%);
-    -webkit-box-shadow: 1px 10px 110px 2px rgb(0 57 131 / 20%);
-    -moz-box-shadow: 1px 10px 110px 2px rgba(0,57,131,0.2);
     text-align: center;
     transition: all ease-in-out .3s;
     left: 50%;
@@ -639,15 +635,31 @@
     font-size: 0px !important;
     box-sizing: border-box;
     max-width: var(--max-width);
+    border:none;
+    color:var(--clr-neutral-100) !important;
 }
 
-.shop-player-stats-hearts,
-.shop-player-stats-coins{
-    display: inline-block;
-    width: 50%;
+
+.shop-player-stats-content{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.shop-player-stats-coins .section-coins{
+.shop-player-stats-content > div{
+    margin:0 20px;
+}
+
+.shop-player-stat{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.shop-player-stats-coins .section-coins,
+.shop-player-stats-diamonds .section-diamonds{
     font-weight:700;
 }
 

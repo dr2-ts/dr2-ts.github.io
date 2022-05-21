@@ -118,7 +118,6 @@ export function SubtractDiamonds(amount){
     } else {
         player["diamonds"] = player["diamonds"] - amount;
         AddToLocalStorage();
-
     }
 }
 

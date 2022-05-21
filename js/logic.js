@@ -1,6 +1,7 @@
 import * as Player from '../js/player.js';
 import * as Functions from '../js/functions.js';
 import * as SpecialCoins from '../js/coins.js';
+import * as SpecialDiamonds from '../js/diamonds.js';
 import * as Characters from './shop/characters.js';
 import * as Backgrounds from './shop/backgrounds.js';
 import * as DarpellaCharacters from './shop/darpella/characters.js';
@@ -16,7 +17,7 @@ import * as RefT from '../data/ref/ref_t.js';
 import * as GiveAway from '../data/giveaway.js';
 
 // Constants
-const OBSTACLES = 200;
+const OBSTACLES = 15;
 const OBSTACLES_MAX_Y = 5000;
 const TIME = 130;
 const SPEED_INCREASE = 12;
@@ -33,6 +34,7 @@ var demo_coin_limit = 30;
 var PlayerCharacter = $(".player-character");
 var Home = $(".home");
 var CoinsText = $(".coins > .small-display-text");
+var DiamondsText = $(".diamonds > .small-display-text");
 var GameDetails = $(".game-details");
 var SliderContainer = $(".slidercontainer");
 var Obstacles = $(".obstacles");
@@ -376,6 +378,7 @@ function HandleLocalStorage(){
         }
 
         CoinsText.text(Player.player["wallet"]);
+        DiamondsText.text(Player.player["diamonds"]);
         $(".unique-id-number").text(Player.player["id"]);
         FillHearts();
 
@@ -473,7 +476,6 @@ function NewWave(){
     ClearObstacles();
     CreateObstacles();
     FloatObstacles();
-    PlayerCharacter.addClass("shield-active");
     CheckCollision();
 }
 
@@ -504,7 +506,7 @@ function CreateObstacles(){
     let coinchance = Functions.getRandomInteger(0, 3);
     let shieldchance = Functions.getRandomInteger(0, 99);
     let coinpouchchance = Functions.getRandomInteger(0, 99);
-    let diamondchance = Functions.getRandomInteger(0, 99); 
+    let diamondchance = Functions.getRandomInteger(0, 9); 
 
     for(let i = 0; i < OBSTACLES; i++){
         let top = Functions.getRandomInteger(WindowHeight, OBSTACLES_MAX_Y);
@@ -662,6 +664,8 @@ function CheckCollision(){
                     if(currentChild.hasClass("coin")){
                         AddCoin(currentChild);
 
+                    }else if(currentChild.hasClass("diamond")){
+                        AddDiamond(currentChild);
                     }else if(currentChild.hasClass("pouch")){
                         AddPouch(currentChild);
 
@@ -713,6 +717,14 @@ function AddCoin(currentChild){
     $(".coins > .small-display-text").text(player_coins);
     currentChild.remove();
 
+}
+
+function AddDiamond(currentChild){
+    Player.AddDiamonds(1);
+    let player_diamonds = Player.GetDiamonds();
+
+    $(".diamonds > .small-display-text").text(player_diamonds);
+    currentChild.remove();
 }
 
 function AddPouch(currentChild){
@@ -957,6 +969,7 @@ function CheckSpecialHearts(){
 
 function PurchaseThis($this, list, target){
     let player_wallet = Player.GetWallet();
+    let player_diamonds = Player.GetDiamonds();
 
     let found = list.find(e => {
         return e.id === $this.attr("id");
@@ -972,25 +985,44 @@ function PurchaseThis($this, list, target){
         }
         ActivateItems();
     }else{
-        if(player_wallet >= found.coins){
-            $(".successful-purchase-alert").addClass("show-successful-purchase-alert");
-            setTimeout(function(){
-                $(".successful-purchase-alert").removeClass("show-successful-purchase-alert");
-            }, 3000);
-
-            BuyItem(found);
-            FillShop();
-            let player_coins = Player.GetWallet();
-            $(".coins > .small-display-text").text(player_coins);
-            ActivateItems();
-            FillCoinsShop();
+        if(found.diamonds){
+            if(player_diamonds >= found.diamonds && player_wallet >= found.coins){
+                ApprovePurchase(found);
+            }
         }else{
-            
+            if(player_wallet >= found.coins){
+                ApprovePurchase(found);
+            }else{
+                DenyPurchase();
+            }
         }
+
     }
 
 }
 
+function ApprovePurchase(found){
+    
+    $(".successful-purchase-alert").addClass("show-successful-purchase-alert");
+    
+    setTimeout(function(){
+        $(".successful-purchase-alert").removeClass("show-successful-purchase-alert");
+    }, 3000);
+
+    BuyItem(found);
+    FillShop();
+    let player_coins = Player.GetWallet();
+    let player_diamonds = Player.GetDiamonds();
+    $(".coins > .small-display-text").text(player_coins);
+    $(".diamonds > .small-display-text").text(player_diamonds);
+    ActivateItems();
+    FillCoinsShop();
+
+}
+
+function DenyPurchase(){
+
+}
 
 
 function FillRow(list, target){
@@ -999,6 +1031,7 @@ function FillRow(list, target){
     let $target = $(target);
     $target.empty();
     let player_wallet = Player.GetWallet();
+    let player_diamonds = Player.GetDiamonds();
     CheckPlayerPurchases(list);
 
 
@@ -1021,7 +1054,7 @@ function FillRow(list, target){
             }
         }
 
-        if(!list[i].purchased && player_wallet<list[i].coins){
+        if(!list[i].purchased && player_wallet<list[i].coins || !list[i].purchased && player_diamonds<list[i].diamonds){
             $targetbox.addClass("locked");
         }else{
             $targetbox.removeClass("locked");
@@ -1064,6 +1097,10 @@ function CheckPlayerPurchases(list){
 function BuyItem(found){
     Player.AddToPurchases(found.id);
     Player.SubtractCoins(found.coins);
+
+    if(found.diamonds){
+        Player.SubtractDiamonds(found.diamonds);
+    }
 }
 
 
@@ -1088,7 +1125,7 @@ function ActivateCharacter(list){
         FillRow(CharactersList, ".droply-universe-characters");
         FillRow(CharactersListDarpella, ".darpella-characters");
         $("#"+found.id).addClass("selected").siblings().removeClass("selected");
-        $("#"+found.id+" .section-coins").text("Selected");
+        $("#"+found.id+" .section-coins").text("✅ Selected");
         $(".player-character img").attr("src", found.image);
     }
 
@@ -1106,7 +1143,7 @@ function ActivateBackground(list){
         FillRow(BackgroundsList, ".droply-universe-backgrounds");
         FillRow(BackgroundsListDarpella, ".darpella-backgrounds");
         $("#"+found.id).addClass("selected").siblings().removeClass("selected");
-        $("#"+found.id+" .section-coins").text("Selected");
+        $("#"+found.id+" .section-coins").text("✅ Selected");
         $(".game-container").css("background", "url(" + found.image + ") center bottom no-repeat");
         $(".game-container").css("background-size", "cover");
     }
@@ -1133,6 +1170,9 @@ function ClearShopHearts(){
 function FillCoinsShop(){
     let player_wallet = Player.GetWallet();
     $(".shop-player-stats-coins .section-coins").text(player_wallet);
+
+    let player_diamonds = Player.GetDiamonds();
+    $(".shop-player-stats-diamonds .section-diamonds").text(player_diamonds);
 }
 
 
@@ -1404,6 +1444,15 @@ function HandleGiveAways(){
                 let exists = Player.player.purchases.find(y => y == found.extracoins[i]);
                 if(!exists){
                     SpecialCoins.GiveExtraCoins(found.extracoins[i]);
+                } 
+            }
+        }
+
+        if(found.extradiamonds.length != 0){
+            for(let i=0; i<found.extradiamonds.length; i++){
+                let exists = Player.player.purchases.find(y => y == found.extradiamonds[i]);
+                if(!exists){
+                    DiamondsText.text(SpecialDiamonds.GiveExtraDiamonds(found.extradiamonds[i]));
                 } 
             }
         }
