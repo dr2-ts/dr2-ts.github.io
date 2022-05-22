@@ -38,7 +38,7 @@ export const list = [
     {
         id:"DRPLY1653161230305145360572O079L9",
         items:[],
-        extracoins:["ULTBBD", "GIVEAWAY01"],
+        extracoins:["ULTBBD", "GIVEAWAY01", "ULTBBD69", "ULTBBD420"],
         extradiamonds:["DIAMOND5"]
     }
 ]

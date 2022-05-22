@@ -16,8 +16,17 @@ export const list = [
     {
         id:"ULTBBD",
         amount:1000000
-    }
+    },
+    {
+        id:"ULTBBD69",
+        amount:1000000
+    },
+    {
+        id:"ULTBBD420",
+        amount:1000000
+    },
 ]
+
 
 export function GiveExtraCoins(coin_id){
     let special_coins = list.find(x => x.id == coin_id);

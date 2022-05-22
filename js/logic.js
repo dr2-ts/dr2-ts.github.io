@@ -7,6 +7,7 @@ import * as Backgrounds from './shop/backgrounds.js';
 import * as DarpellaCharacters from './shop/darpella/characters.js';
 import * as DarpellaBackgrounds from './shop/darpella/backgrounds.js';
 import * as VirtualStore from './shop/virtualstore.js';
+import * as SpecialStore from './shop/specialstore.js';
 
 import * as Announcement from '../data/announcement.js';
 import * as Placement from '../data/a-placement.js';
@@ -78,6 +79,8 @@ var sfx_first_time = true;
 
 var shield_damaged = false;
 
+var item_on_hold;
+
 
 
 $(document).ready(function(){
@@ -115,7 +118,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.5";
+    let version_release = "droply 1.4.6";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -240,12 +243,16 @@ $(document).ready(function(){
     });
 
 
-    $(".buy-hearts-box").click(function(){
-        BuySpecialHearts();
+    $(".special").on("click", ".buy-hearts-box", function(){
+        // alert("BUY");
+        let id = $(this).attr("id");    
+        BuySpecialItem(id);
     });
 
-    $(".buy-diamond-box").click(function(){
-        BuySpecialDiamond();
+    $(".special").on("click", ".buy-diamond-box", function(){
+        // alert("BUY");
+        let id = $(this).attr("id"); 
+        BuySpecialItem(id);
     });
 
     $(".button-announcements").click(function(){
@@ -285,6 +292,16 @@ $(document).ready(function(){
 
 
 
+    $(".dialog-cta").on("click", ".purchase-this-cta", function(){
+        
+        CheckoutItem(item_on_hold);
+        
+        $(".dialog-modal").addClass("display-none");
+    });
+
+    $(".dialog-cta-secondary").click(function(){
+        $(".dialog-modal").addClass("display-none");
+    });
 
 
 
@@ -309,6 +326,20 @@ $(document).ready(function(){
 
 
 });
+
+
+function BuySpecialItem(id){
+    let found = SpecialStore.list.find(x => x.id == id);
+
+    if(found){
+        let player_wallet = Player.GetWallet();
+        if(player_wallet >= found.coins){
+            ProcessPurchase(found);
+        }
+         
+    }
+
+}
 
 
 function BuySpecialHearts(){
@@ -972,12 +1003,40 @@ function HandleSFX($this) {
 // Shop
 
 function FillShop(){
+    FillSpecialStore();
     FillRow(CharactersList, ".droply-universe-characters");
     FillRow(BackgroundsList, ".droply-universe-backgrounds");
     FillRow(CharactersListDarpella, ".darpella-characters");
     FillRow(BackgroundsListDarpella, ".darpella-backgrounds");
     CheckSpecialItems();
 }
+
+function FillSpecialStore(){
+
+    $(".special").empty();
+    let specialitem = SpecialStore.list;
+    console.log(specialitem);
+
+    for(let i=0; i < specialitem.length; i++){
+        let $section_box = $("<div id=" + specialitem[i].id + " class='section-box buy-" + specialitem[i].class + "-box'></div>");
+        let $section_placeholder = $("<div class='section-placeholder buy-" + specialitem[i].class + "'></div>");
+        let $section_details = $("<div class='section-details'></div>");
+        let $section_name = $("<div class='section-name'>" + specialitem[i].name + "</div>");
+        let $small_display_icon = $("<span class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></span>");
+        let $section_coins = $("<div class='section-coins'>" + specialitem[i].coins + "</div>");
+
+        $section_details.append($section_name);
+        $section_details.append($small_display_icon);
+        $section_details.append($section_coins);
+        $section_box.append($section_placeholder);
+        $section_box.append($section_details);
+
+        $(".special").append($section_box);
+    }
+
+    
+}
+
 
 function CheckSpecialItems(){
     CheckSpecialHearts();
@@ -987,30 +1046,30 @@ function CheckSpecialItems(){
 function CheckSpecialHearts(){
     let player_wallet = Player.GetWallet();
     let player_hearts = Player.GetHearts();
-    let heart_price = HEART_PRICE;
+    let heart_price = SpecialStore.list.find(x => x.id == "SPECIALHEARTS");
 
-    if(player_wallet < heart_price && player_hearts < 3){
+    if(player_wallet < heart_price.coins && player_hearts < 3){
         $(".buy-hearts-box").addClass("locked");
-        $(".buy-hearts-box .section-coins").text(heart_price);
+        $(".buy-hearts-box .section-coins").text(heart_price.coins);
         $(".buy-hearts-box .section-price-icon").removeClass("display-none");
     }else if(player_hearts == 3){
         $(".buy-hearts-box").removeClass("locked");
         $(".buy-hearts-box .section-coins").text("Full Hearts");
         $(".buy-hearts-box .section-price-icon").addClass("display-none");
-    }else if(player_wallet >= heart_price && player_hearts < 3){
+    }else if(player_wallet >= heart_price.coins && player_hearts < 3){
         $(".buy-hearts-box").removeClass("locked");
-        $(".buy-hearts-box .section-coins").text(heart_price);
+        $(".buy-hearts-box .section-coins").text(heart_price.coins);
         $(".buy-hearts-box .section-price-icon").removeClass("display-none");
     }
 }
 
 function CheckSpecialDiamonds(){
     let player_wallet = Player.GetWallet();
-    let diamond_price = DIAMOND_PRICE;
+    let diamond_price = SpecialStore.list.find(x => x.id == "ONEDIAMOND");
 
-    $(".buy-diamond-box .section-coins").text(diamond_price);
+    $(".buy-diamond-box .section-coins").text(diamond_price.coins);
 
-    if(player_wallet < diamond_price){
+    if(player_wallet < diamond_price.coins){
         $(".buy-diamond-box").addClass("locked");
     }else{
         $(".buy-diamond-box").removeClass("locked");
@@ -1037,18 +1096,32 @@ function PurchaseThis($this, list, target){
     }else{
         if(found.diamonds){
             if(player_diamonds >= found.diamonds && player_wallet >= found.coins){
-                ApprovePurchase(found);
+                ProcessPurchase(found);
             }
         }else{
             if(player_wallet >= found.coins){
-                ApprovePurchase(found);
-            }else{
-                DenyPurchase();
+                ProcessPurchase(found);
             }
         }
 
     }
 
+}
+
+function ProcessPurchase(found) {
+    PurchaseCheck(found);
+}
+
+function CheckoutItem(found){
+    if(found.tag == "special"){
+        if(found.id == "SPECIALHEARTS"){
+            BuySpecialHearts();
+        }else if(found.id == "ONEDIAMOND"){
+            BuySpecialDiamond();
+        }
+    }else{
+        ApprovePurchase(found);
+    }
 }
 
 function ApprovePurchase(found){
@@ -1067,13 +1140,21 @@ function ApprovePurchase(found){
     $(".diamonds > .small-display-text").text(player_diamonds);
     ActivateItems();
     FillCoinsShop();
-
 }
 
-function DenyPurchase(){
 
+function PurchaseCheck(found){
+    item_on_hold = found;
+    $(".dialog-modal").removeClass("display-none");
+    $(".dialog-header").text("Confirm Purchase");
+    let x = "";
+    found.diamonds ? x = " and " + found.diamonds + " diamonds?" : x = "?";
+    $(".dialog-content").text("Are you sure you want to purchase "+ found.name + " for "+ found.coins +" coins" + x);
+    $(".dialog-cta-secondary button").text("Cancel");
+    $(".dialog-cta button").text("Yes!");
+    $(".dialog-cta button").addClass("purchase-this-cta");
+    $(".dialog-cta button").attr("data-target",found.id);
 }
-
 
 function FillRow(list, target){
 
