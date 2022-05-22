@@ -889,6 +889,11 @@ margin-top:20px;
     background-size:50px;
 }
 
+.buy-diamond{
+    background:url(/assets/icons/diamond.svg) center center no-repeat;
+    background-size:50px;
+}
+
 
 .a-placement{
     width:100%;

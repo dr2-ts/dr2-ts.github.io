@@ -25,6 +25,7 @@ const COIN_ABUNDANCE = 0.5;
 const SHIELD_ABUNDANCE = 0.1;
 const POUCH_ABUNDANCE = 0.1;
 const HEART_PRICE = 30;
+const DIAMOND_PRICE = 10;
 const SHIELD_DAMAGE = 20;
 
 var DEMO = false;
@@ -114,7 +115,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.4";
+    let version_release = "droply 1.4.5";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -240,23 +241,11 @@ $(document).ready(function(){
 
 
     $(".buy-hearts-box").click(function(){
-        let player_wallet = Player.GetWallet();
-        let player_hearts = Player.GetHearts();
-        let heart_price = HEART_PRICE;
+        BuySpecialHearts();
+    });
 
-        if(player_wallet >= heart_price && player_hearts < 3){
-            Player.AddHearts(1);
-            Player.SubtractCoins(heart_price);
-            let player_new_wallet = Player.GetWallet();
-
-            CoinsText.text(player_new_wallet);
-            FillHearts();
-            FillShopHearts();
-            FillCoinsShop();
-            CheckSpecialHearts();
-            FillShop();
-            ActivateItems();
-        }
+    $(".buy-diamond-box").click(function(){
+        BuySpecialDiamond();
     });
 
     $(".button-announcements").click(function(){
@@ -320,6 +309,48 @@ $(document).ready(function(){
 
 
 });
+
+
+function BuySpecialHearts(){
+    let player_wallet = Player.GetWallet();
+    let player_hearts = Player.GetHearts();
+    let heart_price = HEART_PRICE;
+
+    if(player_wallet >= heart_price && player_hearts < 3){
+        Player.AddHearts(1);
+        Player.SubtractCoins(heart_price);
+        let player_new_wallet = Player.GetWallet();
+
+        CoinsText.text(player_new_wallet);
+        FillHearts();
+        FillShopHearts();
+        FillCoinsShop();
+        CheckSpecialItems();
+        FillShop();
+        ActivateItems();
+    }
+}
+
+function BuySpecialDiamond(){
+    let player_wallet = Player.GetWallet();
+    let diamond_price = DIAMOND_PRICE;
+
+    if(player_wallet >= diamond_price){
+        Player.AddDiamonds(1);
+        Player.SubtractCoins(diamond_price);
+        let player_new_wallet = Player.GetWallet();
+
+        CoinsText.text(player_new_wallet);
+        FillHearts();
+        FillShopHearts();
+        FillCoinsShop();
+        CheckSpecialItems();
+        FillShop();
+        ActivateItems();
+    }
+}
+
+
 
 function ContinueOrRestartGame(){
     SpeedIncrease = 0;
@@ -777,6 +808,7 @@ function AddShield() {
 
 function AddBomb(currentChild){
     currentChild.remove();
+    $(".shield").remove();
     $(".shields").addClass("shield-damaged");
     let tempshieldcounter = SHIELD_DAMAGE;
     var ShieldCounterFunction = function(){
@@ -944,7 +976,12 @@ function FillShop(){
     FillRow(BackgroundsList, ".droply-universe-backgrounds");
     FillRow(CharactersListDarpella, ".darpella-characters");
     FillRow(BackgroundsListDarpella, ".darpella-backgrounds");
+    CheckSpecialItems();
+}
+
+function CheckSpecialItems(){
     CheckSpecialHearts();
+    CheckSpecialDiamonds();
 }
 
 function CheckSpecialHearts(){
@@ -964,6 +1001,19 @@ function CheckSpecialHearts(){
         $(".buy-hearts-box").removeClass("locked");
         $(".buy-hearts-box .section-coins").text(heart_price);
         $(".buy-hearts-box .section-price-icon").removeClass("display-none");
+    }
+}
+
+function CheckSpecialDiamonds(){
+    let player_wallet = Player.GetWallet();
+    let diamond_price = DIAMOND_PRICE;
+
+    $(".buy-diamond-box .section-coins").text(diamond_price);
+
+    if(player_wallet < diamond_price){
+        $(".buy-diamond-box").addClass("locked");
+    }else{
+        $(".buy-diamond-box").removeClass("locked");
     }
 }
 
