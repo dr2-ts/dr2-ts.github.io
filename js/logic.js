@@ -2,6 +2,8 @@ import * as Player from '../js/player.js';
 import * as Functions from '../js/functions.js';
 import * as SpecialCoins from '../js/coins.js';
 import * as SpecialDiamonds from '../js/diamonds.js';
+import * as DailyChest from '../js/dailychest.js';
+
 import * as Characters from './shop/characters.js';
 import * as Backgrounds from './shop/backgrounds.js';
 import * as DarpellaCharacters from './shop/darpella/characters.js';
@@ -85,6 +87,8 @@ var item_on_hold;
 
 $(document).ready(function(){
 
+    DailyChest.list.sort((a, b) => (a.rarity > b.rarity) ? 1 : -1);
+
     var href = window.location.href;
     var url = href.split("?");
     if(url[1] == "mode=standalone"){
@@ -118,7 +122,7 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.6";
+    let version_release = "droply 1.4.7";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -305,6 +309,16 @@ $(document).ready(function(){
 
 
 
+    $(".daily-chest").click(function(){
+        $(this).addClass("daily-chest-disappear");
+        OpenDailyChest();
+    });
+
+    $(".prize-accept").click(function(){
+        CloseDailyChest();
+    });
+
+
     // Droply Universe
     $(".droply-universe-characters").on("click",".section-box",function(){
         PurchaseThis($(this), CharactersList, ".droply-universe-characters");
@@ -326,6 +340,63 @@ $(document).ready(function(){
 
 
 });
+
+function OpenDailyChest(){
+    $(".daily-chest-container").removeClass("display-none");
+    let prizelist = DailyChest.list;
+    var arr = [];
+    let prizeqty = 0;
+
+    let rand = Functions.getRandomInteger(0, 99);
+
+    for (let i = 0; i < prizelist.length; i++) {
+        for (let j = 0; j < prizelist[i].rarity; j++) {
+            arr.push(prizelist[i]);
+        }
+    }
+
+    let delta = 100 - arr.length;
+
+    for (let i = 0; i < delta; i++) {
+        arr.push("");
+    }
+
+    console.log(rand);
+    let prize = arr[rand];
+    
+    if(prize.length == 0){
+        prize = prizelist[prizelist.length - 1];
+    }
+
+    if(prize.coins != 0){
+        prizeqty = prize.coins;
+    }
+    if(prize.diamonds != 0){
+        prizeqty = prize.diamonds;
+    }
+
+    $(".prize-animation img").attr("src", prize.image);
+    $(".prize-title-name").text(Player.GetName());
+    $(".prize-title-prize").text(prizeqty + " " + prize.name);
+
+    CollectDailyChestPrize(prize);
+
+}
+
+function CloseDailyChest(){
+    $(".daily-chest-container").addClass("display-none");
+}
+
+function CollectDailyChestPrize(prize){
+    if(prize.fn_call == 0){
+        Player.AddDiamonds(prize.diamonds);
+        DiamondsText.text(Player.GetDiamonds());
+    }else if(prize.fn_call == 1){
+        Player.AddCoins(prize.coins);
+        CoinsText.text(Player.GetWallet());
+    }
+
+}
 
 
 function BuySpecialItem(id){

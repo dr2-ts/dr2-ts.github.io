@@ -15,7 +15,11 @@ export var player = {
     "isHT":false,
     "isLT":false,
     "awards": [],
-    "level":0
+    "level":0,
+    "last_played":0,
+    "daily_chest_opened":false,
+    "time_played_total":0,
+    "highest_time_played_consecutive":0
 }
 
 

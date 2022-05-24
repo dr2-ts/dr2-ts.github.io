@@ -119,6 +119,35 @@
     width:100% !important;
 }
 
+.daily-chest{
+    background: linear-gradient(to right, #fff 20%, #fdcf1c 40%, #fdcf1c 60%, #fff 80%);
+    background: -webkit-linear-gradient(to right, #fff 20%, #fdcf1c 40%, #fdcf1c 60%, #fff 80%);
+    background-size: 200% auto;
+    -webkit-animation: shine 1s linear infinite;
+    animation: shine 1s linear infinite;
+    text-align:center;
+    border: 1px solid #fdcf1c;
+    border-bottom: 3px solid #fdcf1c;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size:20px;
+    margin:10px 0 0 0;
+    width:100%;
+    transition: transform ease-in-out 1s;
+}
+
+.daily-chest img{
+    width:30px;
+    margin:0 10px 0 0;
+}
+
+.daily-chest-disappear{
+    transform: translateX(300%);
+    transition: transform ease-in-out 1s;
+}
+
+
 .hearts.small-display{
     left:10px;
     top:60px;
@@ -201,10 +230,110 @@
 
 
 
+/* Daily Chest */
+.daily-chest-container{
+    position: fixed;
+    width:100%;
+    height:100vh;
+    top:0;
+    left:0;
+    background:#000000ed;
+    z-index:900;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+.daily-chest-content{
+    width:100%;
+    margin:0 auto;
+}
+
+.daily-chest-content-header{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:50px 0;
+}
 
 
+.daily-chest-content-header-image img{
+    width:50px;
+    margin:0 10px 0 0;
+}
 
+.daily-chest-content-header-details{
+    color:var(--clr-neutral-100) !important;
+}
 
+.daily-chest-content-details-title{
+    font-size:20px;
+    font-weight:600;
+}
+
+.daily-chest-content-details-description{
+    font-size:15px;
+    font-weight:300;
+}
+
+.prize-animation{
+    width:100%;
+    text-align: center;
+    display:flex;
+    align-items: center;
+    height:40vh;
+    justify-content: center;
+    position: relative;
+}
+
+.prize-animation::before{
+    content:'';
+    position: absolute;
+    width:100%;
+    height:100vh;
+    background:url(/assets/images/lightshine.png) center center no-repeat;
+    background-size: contain;
+    animation: rotateinfinite 10s linear infinite;
+    -webkit-animation: rotateinfinite 10s linear infinite;
+}
+
+.prize-animation img{
+    width:100px;
+    animation: prizereveal 4s linear forwards;
+    -webkit-animation: prizereveal 4s linear forwards;
+}
+
+.daily-chest-content-prize-details{
+    width:100%;
+    padding:30px 0;
+    text-align: center;
+    position:relative;
+    z-index:1000;
+}
+
+.prize-title{
+    color:rgb(160, 160, 160);
+    font-size:15px;
+    font-weight:400;
+}
+
+.prize-accept{
+    background: #fdcf1c;
+    border-bottom: 7px solid #cda400;
+    color:var(--clr-neutral-900);
+    padding:20px 30px;
+    margin:20px 0 0 0; 
+}
+
+.prize-accept:hover{
+    border-bottom: 0px solid #cda400;
+    background: #cda400;
+}
+
+.prize-title-name, 
+.prize-title-prize{
+    font-weight:700;
+    color:var(--clr-neutral-100);
+}
 
 /* Player Character */
 .player-character{
