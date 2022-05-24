@@ -17,6 +17,7 @@ export var player = {
     "awards": [],
     "level":0,
     "last_played":0,
+    "last_opened_chest":0,
     "daily_chest_opened":false,
     "time_played_total":0,
     "highest_time_played_consecutive":0
@@ -84,9 +85,21 @@ export function SetName(name){
 
 
 // Wallet
-export function AddCoins(amount) {
-    player["wallet"] += amount;
+export function AddCoins(amount, demo) {
+    if(demo){
+        if(player.wallet > 30){
+            player.wallet = 30;
+        }else if(player.wallet + amount > 30){
+            player.wallet = 30;
+        }else{
+            player["wallet"] += amount;
+        }
+    }else{
+        player["wallet"] += amount;
+    }
+    
     AddToLocalStorage();
+
 }
 
 export function SubtractCoins(amount) {
@@ -168,6 +181,43 @@ export function RemoveFromPurchases(value) {
         player["purchases"].splice(index, 1);
     }
     AddToLocalStorage();
+}
+
+
+// Time Stamps
+export function UpdateLastPlayedTimestamp(time){
+    player.last_played = time;
+    AddToLocalStorage();
+}
+
+export function GetLastPlayedTimestamp(){
+    return player.last_played;
+}
+
+export function UpdateTotalPlayedTimestamp(session_start_timestamp){
+    let total = player.last_played - session_start_timestamp;
+    player.time_played_total += total;
+    AddToLocalStorage();
+}
+
+// Daily Chest
+export function DailyChestOpened(){
+    player.daily_chest_opened = true;
+    AddToLocalStorage();
+}
+
+export function ResetDailyChest(){
+    player.daily_chest_opened = false;
+    AddToLocalStorage();
+}
+
+export function UpdatetLastOpenedChest(time){
+    player.last_opened_chest = time;
+    AddToLocalStorage();
+}
+
+export function GetLastOpenedChest(){
+    return player.last_opened_chest;
 }
 
 

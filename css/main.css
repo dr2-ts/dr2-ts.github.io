@@ -78,8 +78,7 @@
 }
 
 .home{
-    left:10px;
-    top:10px;
+    min-width:120px;
     transition:left .5s ease-in-out;
 }
 
