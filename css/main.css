@@ -382,10 +382,16 @@
     width:100%;
 }
 
+.game-details-actions{
+    width:100%;
+    display:flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    flex-direction: row;
+}
 
 .game-details-action-buttons{
-    object-fit: contain;
-    width:12px;
+    flex-grow: 1;
 }
 
 
@@ -403,18 +409,21 @@
 
 .button-announcements{
     background:url(/assets/icons/notification.svg) center center no-repeat, #fff;
-    background-size:14px;
+    background-size:17px;
 }
-.button-awards{
+.button-achievements{
     background:url(/assets/icons/awards.svg) center center no-repeat, #fff;
-    background-size:14px;
+    background-size:17px;
 }
 .button-shop{
     background:url(/assets/icons/shopping.svg) center center no-repeat, #fff;
-    background-size:17px;
+    background-size:19px;
 }
 
-
+.button-guide-book{
+    background:url(/assets/icons/guidebook.svg) center center no-repeat, #fff;
+    background-size:24px;
+}
 
 
 
@@ -1085,6 +1094,81 @@ margin-top:20px;
 
 
 
+/* Guide Book */
+.mega-window{
+    position:fixed;
+    background:#fff;
+    width:100%;
+    height:100vh;
+    z-index:9999;
+    top:100vh;
+    overflow-y:auto;
+    transition:all ease-in-out .3s;
+}
+
+.show-mega-window{
+    top:0 !important;
+    transition: all ease-in-out .3s;
+}
+
+.mega-window-close{
+    width:90%;
+    max-width:var(--max-width);
+    padding:20px 0;
+    background:url(../assets/icons/close.svg) right center no-repeat;
+    background-size:15px;
+    margin:10px auto;
+}
+
+.mega-window-content{
+    width:90%;
+    max-width:var(--max-width);
+    margin:0 auto;
+}
+
+.mega-window-header,
+.guide{
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.mega-window-header-image img{
+    width:60px;
+    margin:0 20px 0 0;
+}
+
+.mega-window-header-title{
+    flex-grow: 1;
+}
+
+.mega-window-title{
+    font-weight:800;
+    font-size:30px;
+}
+
+.mega-window-description{
+    font-size:15px;
+}
+
+.guide{
+    margin:40px 0;
+}
+
+.guide-image img{
+    width:20px;
+    margin:0 40px 0 0;
+}
+
+.guide-title{
+    font-weight:800;
+}
+
+
+
+
+
+
 
 
 
@@ -1154,7 +1238,6 @@ margin-top:20px;
     top:100vh;
     overflow-y:auto;
     transition:all ease-in-out .3s;
-    
 }
 
 .announcement-inner-container{

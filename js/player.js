@@ -194,10 +194,13 @@ export function GetLastPlayedTimestamp(){
     return player.last_played;
 }
 
-export function UpdateTotalPlayedTimestamp(session_start_timestamp){
-    let total = player.last_played - session_start_timestamp;
-    player.time_played_total += total;
+export function UpdateTotalPlayedTimestamp(){
+    player.time_played_total += 5;
     AddToLocalStorage();
+}
+
+export function GetTotalPlayedTime(){
+    return player.time_played_total;
 }
 
 // Daily Chest

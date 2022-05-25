@@ -18,6 +18,7 @@ import * as LoT from '../data/lt.js';
 import * as Ref from '../data/ref/ref.js';
 import * as RefT from '../data/ref/ref_t.js';
 import * as GiveAway from '../data/giveaway.js';
+import * as GuideBook from '../data/guidebook.js';
 
 // Constants
 const OBSTACLES = 15;
@@ -83,7 +84,7 @@ var shield_damaged = false;
 
 var item_on_hold;
 
-let session_start_timestamp = new Date().getTime();
+
 
 $(document).ready(function(){
 
@@ -122,7 +123,9 @@ $(document).ready(function(){
 
     FillVirtualStore();
 
-    let version_release = "droply 1.4.8";
+    FillGuideBook();
+
+    let version_release = "droply 1.4.9";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -193,6 +196,27 @@ $(document).ready(function(){
         $(".shop-window").removeClass("show-shop-window");
         $(".shop-player-stats").addClass("display-none");
     });
+
+
+
+    $(".button-guide-book").click(function(){
+        $(".guide-book-window").addClass("show-mega-window");
+    });
+
+    $(".guide-book-close").click(function(){
+        $(".guide-book-window").removeClass("show-mega-window");
+    });
+
+
+    $(".button-achievements").click(function(){
+        FillAchievements();
+        $(".achievements-window").addClass("show-mega-window");
+    });
+
+    $(".achievements-close").click(function(){
+        $(".achievements-window").removeClass("show-mega-window");
+    });
+
 
 
 
@@ -347,10 +371,42 @@ $(document).ready(function(){
 
 });
 
+
+function FillAchievements(){
+    let totalseconds = Player.GetTotalPlayedTime();
+    let hours = Math.round(totalseconds/3600);
+    let minutes = Math.round(totalseconds/60);
+    let time = hours+":"+minutes;
+    $(".total-time").text(time);
+}
+
+
+function FillGuideBook(){
+
+    for(let i=0; i < GuideBook.list.length; i++){
+        let $guide = $("<div class='guide'></div>");
+        let $guideimgcontainer = $("<div class='guide-image'></div>");
+        let $guideimg = $("<img src='" + GuideBook.list[i].icon + "' alt=''>");
+        let $guidecontent = $("<div class='guide-content'></div>");
+        let $guidetitle = $("<div class='guide-title'>" + GuideBook.list[i].title + "</div>");
+        let $guidedescription = $("<div class='guide-description'>" + GuideBook.list[i].description + "</div>");
+
+
+        $guidecontent.append($guidetitle);
+        $guidecontent.append($guidedescription);
+        $guideimgcontainer.append($guideimg);
+        $guide.append($guideimgcontainer);
+        $guide.append($guidecontent);
+
+        $(".guide-book-body").append($guide);
+    }
+
+}
+
 function UpdatePlayerTimeStamps(){
     var currentTime = new Date().getTime();
     Player.UpdateLastPlayedTimestamp(currentTime);
-    Player.UpdateTotalPlayedTimestamp(session_start_timestamp);
+    Player.UpdateTotalPlayedTimestamp();
 }
 
 function CheckDailyChest() {

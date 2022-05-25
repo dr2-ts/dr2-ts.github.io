@@ -74,7 +74,7 @@
             +<span class="reward-announncement-number"></span> Coins Gift!
         </div>
         <div class="demo-message display-none">
-            <div class="demo-message-header"><div class="demo-message-header-title">🔐 Demo Version - Install to Unlock All Feature for Free</div> <div class="demo-message-header-icon"><img src="/assets/icons/close.svg"></div> </div>
+            <div class="demo-message-header"><div class="demo-message-header-title">🔐 Demo Version - Install to Unlock All Features for Free</div> <div class="demo-message-header-icon"><img src="/assets/icons/close.svg"></div> </div>
             <div class="demo-message-body">
                 You are currently playing Droply on the Demo Version and some features are locked. To experience the full game and unlock all features please install Droply for FREE on your phone. <a href="" class="quicklink">Here's How →</a>
             </div>
@@ -129,10 +129,14 @@
 
         <div class="game-details">
             
-            <button class="game-details-action-buttons button-announcements ga-announcements"></button>
-            <!-- <button class="game-details-action-buttons button-messages ga-messages"></button> -->
-            <!-- <button class="game-details-action-buttons button-awards ga-awards"></button> -->
-            <button class="game-details-action-buttons button-shop ga-shop"></button>
+            <div class="game-details-actions">
+                <button class="game-details-action-buttons button-announcements ga-announcements"></button>
+                <button class="game-details-action-buttons button-achievements ga-awards"></button>
+                <button class="game-details-action-buttons button-shop ga-shop"></button>
+                <!-- <button class="game-details-action-buttons button-messages ga-messages"></button> -->
+                <button class="game-details-action-buttons button-guide-book ga-guide-book"></button>
+            </div>
+
             
             
                 <button class="start ga-start button-primary">Start Game</button>
@@ -442,6 +446,66 @@
         </div>
         
     </div>
+
+
+    <div class="guide-book-window mega-window">
+        <div class="guide-book-close mega-window-close"></div>
+
+        <div class="guide-book-content mega-window-content">
+
+            <div class="guide-book-header mega-window-header">
+                <div class="guide-book-header-image mega-window-header-image">
+                    <img src="/assets/icons/guidebook.svg" alt="">
+                </div>
+                <div class="guide-book-header-title mega-window-header-title">
+                    <div class="guide-book-title mega-window-title">
+                        Droply's Guide Book
+                    </div>
+                    <div class="guide-book-description mega-window-description">
+                        Use this guide to learn all about Droply! We go through all the collectables, obstacles, and important elements to know in the game.
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-book-body mega-window-body">
+                
+            </div>
+
+            <div class="invisible"></div>
+        </div>
+
+    </div>
+
+
+
+    <div class="achievements-window mega-window">
+        <div class="achievements-close mega-window-close"></div>
+
+        <div class="achievements-content mega-window-content">
+
+            <div class="achievements-header mega-window-header">
+                <div class="achievements-header-image mega-window-header-image">
+                    <img src="/assets/icons/awards.svg" alt="">
+                </div>
+                <div class="achievements-header-title mega-window-header-title">
+                    <div class="achievements-title mega-window-title">
+                        Your Achievements
+                    </div>
+                    <div class="achievements-description mega-window-description">
+                        Discover how much you've played total, your stats, and your awards! 
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements-body mega-window-body">
+                <div class="total-time"></div>
+            </div>
+
+            <div class="invisible"></div>
+        </div>
+
+    </div>
+
 
 
     <div class="settings-window">
