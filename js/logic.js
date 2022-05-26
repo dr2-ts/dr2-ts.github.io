@@ -56,6 +56,7 @@ var BackgroundsListDarpella = DarpellaBackgrounds.list.slice();
 var GameLoopInterval;
 var CheckCollisionInterval;
 var CounterCoinsInterval;
+var PlayTimeCounterInterval;
 var ShieldCounterInterval;
 var CheckMusicInterval;
 var CheckSFXInterval;
@@ -83,6 +84,10 @@ var sfx_first_time = true;
 var shield_damaged = false;
 
 var item_on_hold;
+
+var session_start_seconds = 0;
+var playtimecounter = 0;
+    
 
 
 
@@ -125,7 +130,7 @@ $(document).ready(function(){
 
     FillGuideBook();
 
-    let version_release = "droply 1.4.9";
+    let version_release = "droply 1.4.10";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -177,6 +182,7 @@ $(document).ready(function(){
             "left": "50%",
             "transform": "translateX(-50%)"
         });
+
 
     });
 
@@ -373,11 +379,42 @@ $(document).ready(function(){
 
 
 function FillAchievements(){
-    let totalseconds = Player.GetTotalPlayedTime();
+    let totalseconds = Player.GetTotalInGameTime();
+    
+    let days = Math.round(totalseconds/86400);
     let hours = Math.round(totalseconds/3600);
     let minutes = Math.round(totalseconds/60);
-    let time = hours+":"+minutes;
-    $(".total-time").text(time);
+
+    $(".total-in-game-time .timestamp-days .timestamp-number").text(days);
+    $(".total-in-game-time .timestamp-hours .timestamp-number").text(hours);
+    $(".total-in-game-time .timestamp-minutes .timestamp-number").text(minutes);
+
+
+    let highesttimeingame = Player.GetHighestTimeInGame();
+
+    let highesttimeingamehours = Math.round(highesttimeingame/3600);
+    let highesttimeingameminutes = Math.round(highesttimeingame/60);
+
+    $(".longest-in-game-time .timestamp-hours .timestamp-number").text(highesttimeingamehours);
+    $(".longest-in-game-time .timestamp-minutes .timestamp-number").text(highesttimeingameminutes);
+
+
+    let playedtodaytime = Player.GetLastPlayedTimestamp();
+
+    let playedtodaytimeseconds = playedtodaytime;
+    let playedtodaytimeminutes = Math.round(playedtodaytime/60);
+
+    $(".played-today-time .timestamp-seconds .timestamp-number").text(playedtodaytimeseconds);
+    $(".played-today-time .timestamp-minutes .timestamp-number").text(playedtodaytimeminutes);
+
+
+    let playedrecordtime = Player.GetHighestPlayedTimestamp();
+
+    let playedrecordtimeseconds = playedrecordtime;
+    let playedrecordtimeminutes = Math.round(playedrecordtime/60);
+
+    $(".play-total-time .timestamp-seconds .timestamp-number").text(playedrecordtimeseconds);
+    $(".play-total-time .timestamp-minutes .timestamp-number").text(playedrecordtimeminutes);
 }
 
 
@@ -405,8 +442,15 @@ function FillGuideBook(){
 
 function UpdatePlayerTimeStamps(){
     var currentTime = new Date().getTime();
-    Player.UpdateLastPlayedTimestamp(currentTime);
-    Player.UpdateTotalPlayedTimestamp();
+    session_start_seconds += 5;
+
+    Player.UpdateLastInGameTimestamp(currentTime);
+    Player.UpdateTotalInGameTimestamp();
+    Player.UpdateHighestTimeInGame(session_start_seconds);
+
+
+    FillAchievements();
+    
 }
 
 function CheckDailyChest() {
@@ -697,6 +741,27 @@ function HandleLocalStorageInconsistencies(LocalStoragePlayer){
     } else{
         Player.player["last_opened_chest"] = LocalStoragePlayer["last_opened_chest"]; 
     }
+
+    if(LocalStoragePlayer["time_in_game_total"] == undefined){
+        Player.player["time_in_game_total"] = 0;
+        localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
+    } else{
+        Player.player["time_in_game_total"] = LocalStoragePlayer["time_in_game_total"]; 
+    }
+
+    if(LocalStoragePlayer["last_in_game"] == undefined){
+        Player.player["last_in_game"] = 0;
+        localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
+    } else{
+        Player.player["last_in_game"] = LocalStoragePlayer["last_in_game"]; 
+    }
+
+    if(LocalStoragePlayer["highest_time_in_game"] == undefined){
+        Player.player["highest_time_in_game"] = 0;
+        localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
+    } else{
+        Player.player["highest_time_in_game"] = LocalStoragePlayer["highest_time_in_game"]; 
+    }
 }
 
 function AddNewAnnouncement(){
@@ -733,11 +798,17 @@ function StartGame(){
 
 
     NewWave(); 
-    GameLoopInterval = setTimeout(Loop, HighestVelocity);
+    if(GameLoopInterval == undefined) {
+        GameLoopInterval = setTimeout(Loop, HighestVelocity);
+    }
 
 
     last_game_started = Date.now();
     CounterCoinsInterval = setTimeout(CounterCoins, 5000);
+
+    if(PlayTimeCounterInterval == undefined){
+         PlayTimeCounterInterval = setInterval(PlayTimeCounter, 1000);
+    }
 
 }
 
@@ -876,7 +947,17 @@ function FloatObstacles(){
 }
 
 
+function PlayTimeCounter(){
+    playtimecounter++;
 
+    if(playtimecounter > Player.GetHighestPlayedTimestamp()){
+        Player.UpdateHighestPlayedTimestamp(playtimecounter);
+    }
+
+    Player.UpdateLastPlayedTimestamp(playtimecounter);
+
+    console.log(playtimecounter);
+}
 
 function Loop() {
         if(HighestVelocity != 0 && !Paused){
@@ -890,16 +971,30 @@ function Loop() {
 
 function ClearLoop() {
     clearTimeout(GameLoopInterval);
+    GameLoopInterval = undefined;
+
+    clearInterval(CheckCollisionInterval);
+    CheckCollisionInterval = undefined;
+
+    clearInterval(CounterCoinsInterval);
+    CounterCoinsInterval = undefined;
+
+    clearInterval(PlayTimeCounterInterval);
+    PlayTimeCounterInterval = undefined;
 }
 
 
 
 function CheckCollision(){
 
+
     var children = $(".obstacles").children();
 
     if(!Paused){
         CheckCollisionInterval = window.setInterval(function () {
+
+            console.log("Still checking");
+
 
             var PlayerCharacterWidth = PlayerCharacter.width();
             var PlayerCharacterHeight = PlayerCharacter.height();
@@ -1089,11 +1184,6 @@ function PauseGame(){
 
     SliderContainer.removeClass("slider-slide-up");
 
-    clearInterval(CheckCollisionInterval);
-    CheckCollisionInterval = undefined;
-
-    clearInterval(CounterCoinsInterval);
-    CounterCoinsInterval = undefined;
 
     $(".obstacles > .obstacle").each(function(index){
 

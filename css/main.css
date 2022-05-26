@@ -495,6 +495,52 @@
 
 
 
+/* Achievements */
+.timestamps-container{
+    padding:30px;
+    border-radius: 15px;
+    margin:20px 0;
+}
+
+.timestamp-content{
+    display:flex;
+}
+
+.timestamp-title{
+    font-weight:800;
+    font-size:20px;
+}
+
+.timestamp-time{
+    margin:0 10px 0 0;
+}
+
+
+.total-in-game-time{
+    background:url(/assets/backgrounds/droplysky.svg) center center no-repeat;
+    background-size:cover;
+    color:var(--clr-neutral-900);
+}
+
+.longest-in-game-time{
+    background:url(/assets/backgrounds/marvelousprairie.svg) center center no-repeat;
+    background-size:cover;
+    color:var(--clr-neutral-900);
+}
+
+.played-today-time{
+    background:url(/assets/backgrounds/fangdorkingdom.svg) center center no-repeat;
+    background-size:cover;
+    color:var(--clr-neutral-900);
+}
+
+.play-total-time{
+    background:url(/assets/backgrounds/laddum.svg) center center no-repeat;
+    background-size:cover;
+    color:var(--clr-neutral-900);
+}
+
+
 
 /* Paused Module */
 .pause-module{
@@ -1126,7 +1172,7 @@ margin-top:20px;
     margin:0 auto;
 }
 
-.mega-window-header,
+.mega-window-header-image,
 .guide{
     display:flex;
     flex-wrap: nowrap;
@@ -1148,6 +1194,7 @@ margin-top:20px;
 }
 
 .mega-window-description{
+    padding:10px 0 0 0;
     font-size:15px;
 }
 

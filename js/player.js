@@ -17,9 +17,12 @@ export var player = {
     "awards": [],
     "level":0,
     "last_played":0,
+    "last_in_game":0,
     "last_opened_chest":0,
     "daily_chest_opened":false,
     "time_played_total":0,
+    "time_in_game_total":0,
+    "highest_time_in_game":0,
     "highest_time_played_consecutive":0
 }
 
@@ -123,7 +126,6 @@ export function ResetWallet() {
 
 
 //Diamonds
-
 export function AddDiamonds(amount){
     player["diamonds"] += amount;
     AddToLocalStorage();
@@ -141,6 +143,7 @@ export function SubtractDiamonds(amount){
 export function GetDiamonds(){
     return player.diamonds;
 }
+
 
 
 // Hearts
@@ -165,6 +168,7 @@ export function ResetHearts() {
 
 
 
+
 // Purchases
 export function GetPurchases(){
     return player["purchases"];
@@ -185,23 +189,80 @@ export function RemoveFromPurchases(value) {
 
 
 // Time Stamps
+
+
 export function UpdateLastPlayedTimestamp(time){
     player.last_played = time;
     AddToLocalStorage();
 }
 
 export function GetLastPlayedTimestamp(){
-    return player.last_played;
+   return player.last_played;
 }
 
-export function UpdateTotalPlayedTimestamp(){
-    player.time_played_total += 5;
+export function UpdateHighestPlayedTimestamp(time){
+    player.highest_time_played_consecutive = time;
     AddToLocalStorage();
 }
 
-export function GetTotalPlayedTime(){
-    return player.time_played_total;
+export function GetHighestPlayedTimestamp(){
+   return player.highest_time_played_consecutive;
 }
+
+
+
+
+export function UpdateHighestTimeInGame(time){
+    if(time > player.highest_time_in_game){
+        player.highest_time_in_game = time;
+        AddToLocalStorage();
+    }
+}
+
+export function GetHighestTimeInGame(){
+    return player.highest_time_in_game;
+}
+
+
+
+
+export function UpdateLastInGameTimestamp(time){
+    player.last_in_game = time;
+    AddToLocalStorage();
+}
+
+export function GetLastInGameTimestamp(){
+    return player.last_in_game;
+}
+
+
+
+
+export function UpdateTotalInGameTimestamp(){
+    player.time_in_game_total += 5;
+    AddToLocalStorage();
+}
+
+export function GetTotalInGameTime(){
+    return player.time_in_game_total;
+}
+
+
+
+
+
+export function UpdateTotalPlayedTimestamp(){
+
+}
+
+export function GetTotalPlayedTime(){
+    
+}
+
+
+
+
+
 
 // Daily Chest
 export function DailyChestOpened(){
