@@ -130,7 +130,7 @@ $(document).ready(function(){
 
     FillGuideBook();
 
-    let version_release = "droply 1.4.10";
+    let version_release = "droply 1.4.11";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -401,7 +401,7 @@ function FillAchievements(){
 
     let playedtodaytime = Player.GetLastPlayedTimestamp();
 
-    let playedtodaytimeseconds = playedtodaytime;
+    let playedtodaytimeseconds = playedtodaytime%60;
     let playedtodaytimeminutes = Math.round(playedtodaytime/60);
 
     $(".played-today-time .timestamp-seconds .timestamp-number").text(playedtodaytimeseconds);
@@ -410,7 +410,7 @@ function FillAchievements(){
 
     let playedrecordtime = Player.GetHighestPlayedTimestamp();
 
-    let playedrecordtimeseconds = playedrecordtime;
+    let playedrecordtimeseconds = playedrecordtime%60;
     let playedrecordtimeminutes = Math.round(playedrecordtime/60);
 
     $(".play-total-time .timestamp-seconds .timestamp-number").text(playedrecordtimeseconds);
