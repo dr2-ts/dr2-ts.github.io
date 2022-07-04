@@ -131,7 +131,7 @@ $(document).ready(function(){
 
     FillGuideBook();
 
-    let version_release = "droply 1.4.12";
+    let version_release = "droply 1.4.13";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
