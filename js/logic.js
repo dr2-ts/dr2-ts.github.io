@@ -99,6 +99,7 @@ $(document).ready(function(){
     var url = href.split("?");
     if(url[1] == "mode=standalone"){
         DEMO = false;
+        CheckInstallPrize()
     }else{
         DEMO = true;
         ActivateDemo();
@@ -130,7 +131,7 @@ $(document).ready(function(){
 
     FillGuideBook();
 
-    let version_release = "droply 1.4.11";
+    let version_release = "droply 1.4.12";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -454,23 +455,24 @@ function UpdatePlayerTimeStamps(){
 }
 
 function CheckDailyChest() {
-    var currentTime = new Date().getTime();
-    let timedifference = 60000;
-    let player_last_opened_chest = Player.GetLastOpenedChest();
-
-    if(player_last_opened_chest == 0){
-        Player.UpdatetLastOpenedChest(currentTime);
-    }else if(currentTime > player_last_opened_chest + timedifference){
-        Player.UpdatetLastOpenedChest(currentTime);
-        Player.ResetDailyChest();
-        ShowDailyChestButton();
-    }else if(currentTime < player_last_opened_chest + timedifference && Player.player.daily_chest_opened == false){
-        Player.ResetDailyChest();
-        ShowDailyChestButton();
-    }else if(currentTime < player_last_opened_chest + timedifference && Player.player.daily_chest_opened == true){
-        HideDailyChestButton();
+    if(!DEMO){
+        var currentTime = new Date().getTime();
+        let timedifference = 60000;
+        let player_last_opened_chest = Player.GetLastOpenedChest();
+    
+        if(player_last_opened_chest == 0){
+            Player.UpdatetLastOpenedChest(currentTime);
+        }else if(currentTime > player_last_opened_chest + timedifference){
+            Player.UpdatetLastOpenedChest(currentTime);
+            Player.ResetDailyChest();
+            ShowDailyChestButton();
+        }else if(currentTime < player_last_opened_chest + timedifference && Player.player.daily_chest_opened == false){
+            Player.ResetDailyChest();
+            ShowDailyChestButton();
+        }else if(currentTime < player_last_opened_chest + timedifference && Player.player.daily_chest_opened == true){
+            HideDailyChestButton();
+        }
     }
-
 }
 
 function ShowDailyChestButton(){
@@ -618,6 +620,7 @@ function HandleLocalStorage(){
 
 
         Player.CreatePlayerID();
+        alert("Created player ID");
         localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
 
         CoinsText.text(Player.player["wallet"]);
@@ -627,6 +630,8 @@ function HandleLocalStorage(){
 
 
     }else{
+
+        
 
         Player.player["name"] = LocalStoragePlayer["name"];
         Player.player["id"] = LocalStoragePlayer["id"];
@@ -700,6 +705,15 @@ function HandleLocalStorage(){
 }
 
 function HandleLocalStorageInconsistencies(LocalStoragePlayer){
+    
+    if(LocalStoragePlayer["id"] == undefined || LocalStoragePlayer["id"] == ""){
+        Player.player.id = Player.CreatePlayerID();
+        localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
+    } else{
+        Player.player["id"] = LocalStoragePlayer["id"]; 
+    }
+
+
     if(LocalStoragePlayer["diamonds"] == undefined){
         Player.player["diamonds"] = 0;
         localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
@@ -1029,7 +1043,9 @@ function CheckCollision(){
                         AddCoin(currentChild);
 
                     }else if(currentChild.hasClass("diamond")){
-                        AddDiamond(currentChild);
+                        if(!DEMO){
+                            AddDiamond(currentChild);
+                        }
                     }else if(currentChild.hasClass("pouch")){
                         AddPouch(currentChild);
 
@@ -1896,4 +1912,8 @@ function HandleGiveAways(){
 
 function ActivateDemo(){
     $(".demo-message").removeClass("display-none");
+}
+
+function CheckInstallPrize(){
+    SpecialCoins.GiveExtraCoins('INSTALLBONUS01');
 }

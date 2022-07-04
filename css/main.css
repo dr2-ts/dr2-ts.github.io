@@ -2,7 +2,8 @@
 
 .demo-message{
     padding:20px 30px;
-    background:var(--clr-neutral-100);
+    background:url(/assets/backgrounds/droplysky.svg) bottom center no-repeat;
+    background-size:cover;
 }
 
 .demo-message-header{
@@ -11,28 +12,75 @@
     align-items: center;
 }
 .demo-message-header-title{
-    flex-grow: 1;
+    width:80%;
     font-weight:600;
+    font-size:12px;
+}
+.demo-message-header-icon{
+    width:20%;
+    text-align: center;
+    transition: all ease-in-out .3s;
 }
 .demo-message-header-icon img{
-    width:10px;
+    width:14px;
 }
 
 .demo-message-body{
-    font-size:12px;
+    position:absolute;
+    z-index:99999;
+    background:url(/assets/backgrounds/softsnow.svg) center center no-repeat;
+    background-size:cover;
+    left:0;
+    top:0;
+    transition: all ease-in-out .3s;
+    height:100vh;
+    overflow-y: scroll !important;
+}
+
+.demo-message-body-content{
+    width:90%;
+    margin:0 auto;
+    padding:30px 0;
 }
 
 .demo-message-hide{
-    height:0px !important;
-    display:none;
+    /* height:0px !important;
+    display:none; */
+    top:-100%;
+    transition: all ease-in-out .3s;
 }
 .rotate-close-icon{
     transform: rotate(45deg);
     transform-origin: center;
+    transition: all ease-in-out .3s;
 }
 
 .demo-coin-limit{
     opacity:0.5;
+}
+
+.demo-message-body-block{
+    font-size:14px;
+    padding:10px 0;
+}
+.demo-message-body-block button{
+    margin:20px 0;
+    width:100%;
+}
+
+.demo-message-body-block img{
+    width:100%;
+    object-fit: contain;
+}
+
+.demo-features{
+    display:flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.demo-feature{
+    padding:10px;
 }
 
 
@@ -817,7 +865,7 @@
     bottom: -5px;
     position: fixed;
     border-radius: 10px 10px 0 0;
-    background: var(--clr-primary-dark);
+    background: #fff;
     padding: 20px 20px;
     text-align: center;
     transition: all ease-in-out .3s;
@@ -827,7 +875,9 @@
     box-sizing: border-box;
     max-width: var(--max-width);
     border:none;
-    color:var(--clr-neutral-100) !important;
+    box-shadow:01px -7px 36px -4px rgba(186, 186, 186, 0.24);
+    -webkit-box-shadow: 0px -7px 36px -4px rgba(186, 186, 186, 0.24);
+    -moz-box-shadow: 0px -7px 36px -4px rgba(186, 186, 186, 0.24);
 }
 
 

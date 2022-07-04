@@ -14,17 +14,9 @@ export const list = [
         amount:1000
     },
     {
-        id:"ULTBBD",
-        amount:1000000
-    },
-    {
-        id:"ULTBBD69",
-        amount:1000000
-    },
-    {
-        id:"ULTBBD420",
-        amount:1000000
-    },
+        id:"INSTALLBONUS01",
+        amount:100
+    }
 ]
 
 

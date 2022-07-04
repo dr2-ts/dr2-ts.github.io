@@ -213,3 +213,16 @@
     transform: rotate(360deg);
   }
 }
+
+
+@keyframes changeBackgroundColor {
+  0% {
+    background-color: var(--clr-primary-light);
+  }
+  50% {
+    background-color: var(--clr-primary-dark);
+  }
+  100% {
+    background-color: var(--clr-primary-light);
+  }
+}

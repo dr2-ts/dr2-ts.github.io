@@ -13,7 +13,7 @@ export const list = [
     {
         id:"BA02",
         name: "Calm Night",
-        coins: 10,
+        coins: 150,
         image: "/assets/backgrounds/calmnight.svg",
         url:"",
         color_light: "#006cfa",
@@ -24,7 +24,7 @@ export const list = [
     {
         id:"BA03",
         name: "Warm Sunset",
-        coins: 30,
+        coins: 200,
         image: "/assets/backgrounds/warmsunset.svg",
         url:"",
         color_light: "#006cfa",
@@ -35,7 +35,7 @@ export const list = [
     {
         id:"BAMARVELOUSPRAIRIE",
         name: "The Marvelous Prairie",
-        coins: 60,
+        coins: 250,
         image:"/assets/backgrounds/marvelousprairie.svg",
         url: "",
         color_light: "#006cfa",
@@ -46,7 +46,7 @@ export const list = [
     {
         id:"BA04",
         name: "Soft Snow",
-        coins: 90,
+        coins: 350,
         image: "/assets/backgrounds/softsnow.svg",
         url:"",
         color_light: "#006cfa",
@@ -57,7 +57,7 @@ export const list = [
     {
         id:"BA05",
         name: "Wandering Desert",
-        coins: 120,
+        coins: 550,
         image:"/assets/backgrounds/wanderingdesert.svg",
         url: "",
         color_light: "#006cfa",
@@ -68,7 +68,7 @@ export const list = [
     {
         id:"BAENDLINWOODS",
         name: "The Endlin Woods",
-        coins: 220,
+        coins: 750,
         image:"/assets/backgrounds/endlinwoods.svg",
         url: "",
         color_light: "#006cfa",
@@ -79,7 +79,7 @@ export const list = [
     {
         id:"BAFANGDOR",
         name: "The Fangdor Kingdom",
-        coins: 500,
+        coins: 1000,
         image:"/assets/backgrounds/fangdorkingdom.svg",
         url: "",
         color_light: "#006cfa",
@@ -90,7 +90,7 @@ export const list = [
     {
         id:"BAFIRESTORM",
         name: "Firestorm",
-        coins: 1000,
+        coins: 2500,
         image:"/assets/backgrounds/firestorm.svg",
         url: "",
         color_light: "#006cfa",
@@ -101,7 +101,7 @@ export const list = [
     {
         id:"BALADDUM",
         name: "Laddum",
-        coins: 1000,
+        coins: 2500,
         image:"/assets/backgrounds/laddum.svg",
         url: "",
         color_light: "#006cfa",

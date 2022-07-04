@@ -13,7 +13,7 @@ export const list = [
     {
         id:"CH03",
         name: "Dia",
-        coins: 10,
+        coins: 150,
         image: "/assets/characters/Characters-03.svg",
         url:"",
         color_light: "#006cfa",
@@ -24,7 +24,7 @@ export const list = [
     {
         id:"CH04",
         name: "Aitsh",
-        coins: 30,
+        coins: 200,
         image: "/assets/characters/Characters-04.svg",
         url:"",
         color_light: "#006cfa",
@@ -35,7 +35,7 @@ export const list = [
     {
         id:"CHDRIPPLE",
         name: "Dripple",
-        coins: 60,
+        coins: 250,
         image: "/assets/characters/Character-Dripple.svg",
         url:"",
         color_light: "#006cfa",
@@ -46,7 +46,7 @@ export const list = [
     {
         id:"CH05",
         name: "Oh",
-        coins: 90,
+        coins: 350,
         image: "/assets/characters/Characters-05.svg",
         url:"",
         color_light: "#006cfa",
@@ -57,7 +57,7 @@ export const list = [
     {
         id:"CH02",
         name: "T.D.",
-        coins: 120,
+        coins: 550,
         image: "/assets/characters/Characters-02.svg",
         url:"",
         color_light: "#006cfa",
@@ -68,7 +68,7 @@ export const list = [
     {
         id:"CHKINDBEARD",
         name: "Kindbeard",
-        coins: 220,
+        coins: 750,
         image: "/assets/characters/Character-Kindbeard.svg",
         url:"",
         color_light: "#006cfa",
@@ -79,7 +79,7 @@ export const list = [
     {
         id:"CHBALNIN",
         name: "Balnin",
-        coins: 500,
+        coins: 1000,
         image: "/assets/characters/Character-Balnin.svg",
         url:"",
         color_light: "#006cfa",
@@ -90,7 +90,7 @@ export const list = [
     {
         id:"CHBLAZE",
         name: "Blaze",
-        coins: 1000,
+        coins: 2500,
         image: "/assets/characters/Characters-06.svg",
         url:"",
         color_light: "#006cfa",
@@ -101,7 +101,7 @@ export const list = [
     {
         id:"CHAXL",
         name: "Axl",
-        coins: 1000,
+        coins: 2500,
         image: "/assets/characters/Characters-07.svg",
         url:"",
         color_light: "#006cfa",
