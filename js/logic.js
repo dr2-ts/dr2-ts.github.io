@@ -95,16 +95,6 @@ $(document).ready(function(){
 
     DailyChest.list.sort((a, b) => (a.rarity > b.rarity) ? 1 : -1);
 
-    var href = window.location.href;
-    var url = href.split("?");
-    if(url[1] == "mode=standalone"){
-        DEMO = false;
-        CheckInstallPrize()
-    }else{
-        DEMO = true;
-        ActivateDemo();
-    }
-
     $(".demo-message-header").click(function(){
         if( $(".demo-message-body").hasClass("demo-message-hide")){
             $(".demo-message-body").removeClass("demo-message-hide");
@@ -131,7 +121,17 @@ $(document).ready(function(){
 
     FillGuideBook();
 
-    let version_release = "droply 1.4.13";
+    var href = window.location.href;
+    var url = href.split("?");
+    if(url[1] == "mode=standalone"){
+        DEMO = false;
+        CheckInstallPrize();
+    }else{
+        DEMO = true;
+        ActivateDemo();
+    }
+
+    let version_release = "droply 1.4.14";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -620,7 +620,6 @@ function HandleLocalStorage(){
 
 
         Player.CreatePlayerID();
-        alert("Created player ID");
         localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
 
         CoinsText.text(Player.player["wallet"]);
@@ -630,8 +629,6 @@ function HandleLocalStorage(){
 
 
     }else{
-
-        
 
         Player.player["name"] = LocalStoragePlayer["name"];
         Player.player["id"] = LocalStoragePlayer["id"];
@@ -650,6 +647,7 @@ function HandleLocalStorage(){
 
         HandleLocalStorageInconsistencies(LocalStoragePlayer);
 
+        alert(Player.player.id)
 
         CoinsText.text(Player.player["wallet"]);
         DiamondsText.text(Player.player["diamonds"]);
@@ -706,13 +704,15 @@ function HandleLocalStorage(){
 
 function HandleLocalStorageInconsistencies(LocalStoragePlayer){
     
-    if(LocalStoragePlayer["id"] == undefined || LocalStoragePlayer["id"] == ""){
-        Player.player.id = Player.CreatePlayerID();
-        localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
-    } else{
-        Player.player["id"] = LocalStoragePlayer["id"]; 
-    }
-
+    // if(LocalStoragePlayer["id"] == undefined || LocalStoragePlayer["id"] == ""){
+    //     alert("Player ID is EMPTY");
+    //     Player.CreatePlayerID();
+    //     alert(Player.player["id"]);
+    //     localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
+    //     alert(JSON.stringify(Player));
+    // } else{
+    //     Player.player["id"] = LocalStoragePlayer["id"]; 
+    // }
 
     if(LocalStoragePlayer["diamonds"] == undefined){
         Player.player["diamonds"] = 0;
