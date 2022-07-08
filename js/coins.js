@@ -26,8 +26,6 @@ export function GiveExtraCoins(coin_id){
     let found = Player.player.purchases.find(x => x == coin_id);
 
     if(!found){
-        alert("not found")
-        alert(JSON.stringify(Player))
         Player.AddToPurchases(coin_id);
         Player.AddCoins(special_coins.amount);
     }

@@ -29,22 +29,7 @@ export var player = {
 
 
 export function CreatePlayerID(){
-    // let alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-    // let start_code = "DRPLY";
-    // let second_code = new Date().getTime().toString();
-    // let third_code = Functions.getRandomInteger(100, 200);
-    // let fourth_code = Functions.getRandomInteger(300, 400);
-    // let fifth_code = Functions.getRandomInteger(500, 600);
-    // let seventh_code = alphabet[Functions.getRandomInteger(0, alphabet.length - 1)];
-    // let eighth_code = Functions.getRandomInteger(0, 9);
-    // let nineth_code = Functions.getRandomInteger(0, 9);
-    // let tenth_code = Functions.getRandomInteger(0, 9);
-    // let eleventh_code = alphabet[Functions.getRandomInteger(0, alphabet.length - 1)];
-    // let twelveth_code = Functions.getRandomInteger(0, 9);
-
-    // let myid = start_code + second_code + third_code.toString() + fourth_code.toString() + fifth_code.toString() + seventh_code + eighth_code.toString() + nineth_code.toString() + tenth_code.toString() + eleventh_code + twelveth_code.toString();
-    // player["id"] = myid;
-    player.id = uuidv4()
+    player.id = 'drply-' + uuidv4()
 }
 
 

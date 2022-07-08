@@ -33,6 +33,7 @@
     left:0;
     top:0;
     transition: all ease-in-out .3s;
+    width:100%;
     height:100vh;
     overflow-y: scroll !important;
 }
@@ -81,6 +82,27 @@
 }
 .demo-feature{
     padding:10px;
+}
+
+.demo-message-steps-title{
+    font-size:25px;
+    font-weight:800;
+    text-align:center;
+    margin:30px 0 0 0;
+}
+
+.demo-message-steps{
+    margin:100px 0 20px 0;
+    font-weight:400;
+    font-size:20px;
+}
+
+.demo-message-steps-back{
+    padding:20px;
+    margin:10px 0;
+    max-width:100px;
+    text-align: center;
+    border-radius:20px;
 }
 
 
@@ -715,7 +737,7 @@
     width:90%;
     border-radius:20px;
     margin:30px auto;
-    /* background:url(https://cdn.dribbble.com/users/2256359/screenshots/15433092/media/311b79dd55ecde91f8096d9e49dc2577.jpg?compress=1&resize=1600x1200) center center no-repeat; */
+    background:url(/assets/backgrounds/droplysky.svg) center center no-repeat;
     background-size:cover;
     box-sizing: border-box;
 }
@@ -727,6 +749,10 @@
     font-weight:600;
     color:var(--clr-neutral-100);
 }
+
+.shop-window-main-title img{
+    width:20px;
+ }
 
 .shop-window-main-cta-button{
     margin:20px;
@@ -763,6 +789,20 @@
     -webkit-overflow-scrolling: touch;
     padding:5px 0;
     margin:0 auto;
+}
+
+.section-content .special{
+    width:90%;
+    display: flex;
+    height:fit-content;
+    position: relative;
+    padding:5px 0;
+    margin:0 auto;
+    flex-wrap: wrap;
+}
+
+.section-content .special .section-box{
+    max-width:30%;
 }
 
 .section-box{
@@ -805,6 +845,14 @@
     white-space: pre-line;
     font-size: .9rem;
     font-weight:700;
+}
+
+.section-description{
+    white-space: pre-line;
+    font-size: .8rem;
+    font-weight:200;
+    line-height: .8rem;
+    margin:15px 0;
 }
 
 .section-coins,
@@ -1095,6 +1143,7 @@
     margin:25px 0;
 }
 
+
 .settings-name-section-title{
     font-size:16px;
     margin-bottom:5px;
@@ -1153,7 +1202,7 @@
 }
 
 .settings-sub-section{
-    margin:30px 0;
+    margin:40px 0;
 }
 
 .referral-section img{
@@ -1260,6 +1309,9 @@ margin-top:20px;
 .guide-title{
     font-weight:800;
 }
+.guide-description{
+    font-weight:300;
+}
 
 
 
@@ -1276,6 +1328,11 @@ margin-top:20px;
 }
 
 .buy-diamond{
+    background:url(/assets/icons/diamond.svg) center center no-repeat;
+    background-size:50px;
+}
+
+.buy-shield-upgrade{
     background:url(/assets/icons/diamond.svg) center center no-repeat;
     background-size:50px;
 }
@@ -1461,6 +1518,16 @@ margin-top:20px;
 .reward-announncement-appear{
     right:10px;
     transition:all ease-in-out .3s;
+}
+
+.my-data h5{
+    margin:0;
+}
+
+.my-data p {
+    margin:10px 0;
+    font-size:12px;
+    font-weight:300;
 }
 
 .export-my-data, 

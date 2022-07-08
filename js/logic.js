@@ -131,7 +131,7 @@ $(document).ready(function(){
         ActivateDemo();
     }
 
-    let version_release = "droply 1.4.14";
+    let version_release = "droply 1.4.15";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -279,13 +279,11 @@ $(document).ready(function(){
 
 
     $(".special").on("click", ".buy-hearts-box", function(){
-        // alert("BUY");
         let id = $(this).attr("id");    
         BuySpecialItem(id);
     });
 
     $(".special").on("click", ".buy-diamond-box", function(){
-        // alert("BUY");
         let id = $(this).attr("id"); 
         BuySpecialItem(id);
     });
@@ -331,12 +329,17 @@ $(document).ready(function(){
         
         CheckoutItem(item_on_hold);
         
-        $(".dialog-modal").addClass("display-none");
+        ClearDialogModal()
     });
 
-    $(".dialog-cta-secondary").click(function(){
-        $(".dialog-modal").addClass("display-none");
-    });
+    // $(".dialog-cta-secondary").click(function(){
+    //     ClearDialogModal()
+    // });
+
+
+    $(".dialog-modal").on('click', '.close-dialog-modal', function(){
+        ClearDialogModal()
+    })
 
 
 
@@ -350,6 +353,28 @@ $(document).ready(function(){
         $(".daily-chest-container").addClass("display-none");
         CloseDailyChest();
     });
+
+
+    $(".demo-message-body-block-start .button-primary").click(function(){
+        $(".demo-message-body-block-start").addClass('display-none');
+        $(".demo-message-body-block-choose").removeClass('display-none');
+    })
+
+    $(".demo-select-chrome").click(function(){
+        $(".demo-message-body-block-choose").addClass('display-none');
+        $(".demo-message-body-block-chrome").removeClass('display-none');
+    })
+
+    $(".demo-select-safari").click(function(){
+        $(".demo-message-body-block-choose").addClass('display-none');
+        $(".demo-message-body-block-safari").removeClass('display-none');
+    })
+
+    $(".demo-message-steps-back").click(function(){
+        $(".demo-message-body-block-choose").removeClass('display-none');
+        $(".demo-message-body-block-safari").addClass('display-none');
+        $(".demo-message-body-block-chrome").addClass('display-none');
+    })
 
 
     setInterval(CheckDailyChest, 5000);
@@ -549,7 +574,6 @@ function BuySpecialItem(id){
         if(player_wallet >= found.coins){
             ProcessPurchase(found);
         }
-         
     }
 
 }
@@ -565,7 +589,8 @@ function BuySpecialHearts(){
         Player.SubtractCoins(heart_price);
         let player_new_wallet = Player.GetWallet();
 
-        CoinsText.text(player_new_wallet);
+        CoinsText.text(player_new_wallet)
+        DiamondsText.text(Player.GetDiamonds())
         FillHearts();
         FillShopHearts();
         FillCoinsShop();
@@ -585,6 +610,7 @@ function BuySpecialDiamond(){
         let player_new_wallet = Player.GetWallet();
 
         CoinsText.text(player_new_wallet);
+        DiamondsText.text(Player.GetDiamonds())
         FillHearts();
         FillShopHearts();
         FillCoinsShop();
@@ -647,8 +673,6 @@ function HandleLocalStorage(){
 
         HandleLocalStorageInconsistencies(LocalStoragePlayer);
 
-        alert(Player.player.id)
-
         CoinsText.text(Player.player["wallet"]);
         DiamondsText.text(Player.player["diamonds"]);
         $(".unique-id-number").text(Player.player["id"]);
@@ -704,16 +728,6 @@ function HandleLocalStorage(){
 
 function HandleLocalStorageInconsistencies(LocalStoragePlayer){
     
-    // if(LocalStoragePlayer["id"] == undefined || LocalStoragePlayer["id"] == ""){
-    //     alert("Player ID is EMPTY");
-    //     Player.CreatePlayerID();
-    //     alert(Player.player["id"]);
-    //     localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
-    //     alert(JSON.stringify(Player));
-    // } else{
-    //     Player.player["id"] = LocalStoragePlayer["id"]; 
-    // }
-
     if(LocalStoragePlayer["diamonds"] == undefined){
         Player.player["diamonds"] = 0;
         localStorage.setItem("DroplyPlayer", JSON.stringify(Player.player));
@@ -1335,10 +1349,12 @@ function FillSpecialStore(){
         let $section_placeholder = $("<div class='section-placeholder buy-" + specialitem[i].class + "'></div>");
         let $section_details = $("<div class='section-details'></div>");
         let $section_name = $("<div class='section-name'>" + specialitem[i].name + "</div>");
+        let $section_description = $("<div class='section-description'>" + specialitem[i].description + "</div>");
         let $small_display_icon = $("<span class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></span>");
         let $section_coins = $("<div class='section-coins'>" + specialitem[i].coins + "</div>");
 
         $section_details.append($section_name);
+        $section_details.append($section_description);
         $section_details.append($small_display_icon);
         $section_details.append($section_coins);
         $section_box.append($section_placeholder);
@@ -1458,15 +1474,30 @@ function ApprovePurchase(found){
 
 function PurchaseCheck(found){
     item_on_hold = found;
-    $(".dialog-modal").removeClass("display-none");
-    $(".dialog-header").text("Confirm Purchase");
+
     let x = "";
     found.diamonds ? x = " and " + found.diamonds + " diamonds?" : x = "?";
-    $(".dialog-content").text("Are you sure you want to purchase "+ found.name + " for "+ found.coins +" coins" + x);
-    $(".dialog-cta-secondary button").text("Cancel");
-    $(".dialog-cta button").text("Yes!");
-    $(".dialog-cta button").addClass("purchase-this-cta");
-    $(".dialog-cta button").attr("data-target",found.id);
+
+    ShowDialogModal(
+        {
+            title: 'Confirm Purchase',
+            description: "Are you sure you want to purchase "+ found.name + " for "+ found.coins +" coins" + x,
+            cta_primary: 'Buy this!',
+            cta_primary_class: 'purchase-this-cta',
+            cta_secondary_active: true,
+            cta_secondary: "Don't buy this",
+            cta_secondary_class: "close-dialog-modal",
+            cta_primary_target: found.id
+        }
+    )
+    
+    // $(".dialog-modal").removeClass("display-none");
+    // $(".dialog-header").text("Confirm Purchase");
+    // $(".dialog-content").text("Are you sure you want to purchase "+ found.name + " for "+ found.coins +" coins" + x);
+    // $(".dialog-cta-secondary button").text("Cancel");
+    // $(".dialog-cta button").text("Yes!");
+    // $(".dialog-cta button").addClass("purchase-this-cta");
+    // $(".dialog-cta button").attr("data-target",found.id);
 }
 
 function FillRow(list, target){
@@ -1712,10 +1743,17 @@ function DownloadData() {
         "background":Player.player["background"],
         "wallet": Player.player["wallet"],
         "hearts": Player.player["hearts"],
-        "purchases": Player.player["purchases"]
+        "diamonds": Player.player["diamonds"],
+        "purchases": Player.player["purchases"],
+        "last_played":Player.player["last_played"],
+        "last_in_game":Player.player["last_in_game"],
+        "time_played_total":Player.player["time_played_total"],
+        "time_in_game_total":Player.player["time_in_game_total"],
+        "highest_time_in_game":Player.player["highest_time_in_game"],
+        "highest_time_played_consecutive":Player.player["highest_time_played_consecutive"]
     };
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + JSON.stringify(saved));
-    element.setAttribute('download', "Droply-"+Date.now()+".json");
+    element.setAttribute('download', "Droply-Data-"+Date.now()+".json");
   
     element.style.display = 'none';
     document.body.appendChild(element);
@@ -1915,5 +1953,57 @@ function ActivateDemo(){
 }
 
 function CheckInstallPrize(){
-    SpecialCoins.GiveExtraCoins('INSTALLBONUS01');
+
+    let found = Player.GetPurchases().find(x => x == 'INSTALLBONUS01')
+
+    if(!found){
+        ShowDialogModal(
+            {
+                title: '🎉 You just got 100 Coins for free!',
+                description: 'You installed Droply on your phone and received 100 coins for free!',
+                cta_primary: "Let's play!",
+                cta_primary_class: 'close-dialog-modal',
+                cta_secondary_active: false,
+                cta_secondary: '',
+                cta_secondary_class: '',
+                cta_primary_target: ''
+            }
+        )
+    
+        let player_wallet = SpecialCoins.GiveExtraCoins('INSTALLBONUS01')
+        CoinsText.text(player_wallet)
+    }
+
+}
+
+
+function ShowDialogModal({title, description, cta_primary, cta_primary_class, cta_primary_target, cta_secondary_active, cta_secondary,  cta_secondary_class }){
+    $(".dialog-modal").removeClass('display-none')
+    $('.dialog-header').text(title)
+    $('.dialog-content p').text(description)
+
+    if(cta_secondary_active){
+        $('.dialog-cta-secondary').removeClass('display-none')
+        $('.dialog-cta-secondary button').text(cta_secondary)
+        $('.dialog-cta-secondary button').addClass(cta_secondary_class)
+    }else{
+        $('.dialog-cta-secondary').addClass('display-none')
+    }
+
+    $(".dialog-cta button").attr("data-target",cta_primary_target)
+    $('.dialog-cta button').text(cta_primary)
+    $('.dialog-cta button').addClass(cta_primary_class)
+}
+
+
+
+function ClearDialogModal(){
+    $(".dialog-modal").addClass('display-none')
+    $('.dialog-header').text('')
+    $('.dialog-content p').text('')
+    $('.dialog-cta-secondary button').text('')
+    $('.dialog-cta button').text('')
+    $('.dialog-cta-secondary button').removeClass()
+    $('.dialog-cta button').removeClass()
+    $(".dialog-cta button").attr("data-target","")
 }

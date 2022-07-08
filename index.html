@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -9,7 +10,8 @@
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="Description" content="Immerse yourself in a beautiful and calming 2D Web-based game. Collect coins, unlock characters and backgrounds, all while listening to Droply's soothing soundtrack.">
+    <meta name="Description"
+        content="Immerse yourself in a beautiful and calming 2D Web-based game. Collect coins, unlock characters and backgrounds, all while listening to Droply's soothing soundtrack.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="/css/setup.css">
@@ -38,18 +40,19 @@
 
     <title>Droply</title>
 </head>
+
 <body>
-<!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T56SD8D" height="0" width="0"
+    <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T56SD8D" height="0" width="0"
         style="display:none;visibility:hidden"></iframe></noscript> -->
 
-<img src="/assets/images/lightshine.png" class="display-none">
+    <img src="/assets/images/lightshine.png" class="display-none">
     <div class="daily-chest-container display-none">
         <div class="daily-chest-content">
             <div class="daily-chest-content-header">
                 <div class="daily-chest-content-header-image">
                     <img src="/assets/icons/chest.png" alt="">
                 </div>
-    
+
                 <div class="daily-chest-content-header-details">
                     <div class="daily-chest-content-details-title">Daily Chest</div>
                     <div class="daily-chest-content-details-description">Let's see what you're going to win!</div>
@@ -59,14 +62,15 @@
             <div class="daily-chest-content-prize">
                 <div class="prize-animation"><img src="/assets/icons/treasure.png"></div>
                 <div class="daily-chest-content-prize-details">
-                    <div class="prize-title">Congrats <span class="prize-title-name">[Name]</span>! You got  <span class="prize-title-prize">[this item]</span>!</div>
+                    <div class="prize-title">Congrats <span class="prize-title-name">[Name]</span>! You got <span
+                            class="prize-title-prize">[this item]</span>!</div>
                     <button class="prize-accept button-primary">Collect Prize</button>
                 </div>
-                
+
             </div>
-            
+
         </div>
-    </div>    
+    </div>
 
 
     <div class="game-container">
@@ -81,10 +85,13 @@
             <div class="demo-message-body demo-message-hide">
                 <div class="demo-message-body-content">
                     <div class="demo-message-header">
-                        <div class="demo-message-header-title">🔐 Demo Version - Install to Unlock All Features for Free</div>
-                        <div class="demo-message-header-icon rotate-close-icon"><img src="/assets/icons/close.svg"></div>
+                        <div class="demo-message-header-title">🔐 Demo Version - Install to Unlock All Features for Free
+                        </div>
+                        <div class="demo-message-header-icon rotate-close-icon"><img src="/assets/icons/close.svg">
+                        </div>
                     </div>
-                    <div class="demo-message-body-block">
+
+                    <div class="demo-message-body-block demo-message-body-block-start">
                         <img src="/assets/images/savedroply.svg">
                         Install Droply for FREE on your phone to unlock all features:
                         <div class="demo-features">
@@ -93,18 +100,77 @@
                             <div class="demo-feature">⭐️ Backup Data</div>
                             <div class="demo-feature">⭐️ All Characters & Realms</div>
                         </div>
-                        
+
                         <button class="button-primary">Install Now & Get 100 Coins FREE!</button>
                     </div>
+
+                    <div class="demo-message-body-block demo-message-body-block-choose display-none">
+                        Which browser are you on?
+                        <button class="button-primary demo-select-chrome">Google Chrome</button>
+                        <button class="button-primary demo-select-safari">Safari</button>
+                    </div>
+
+                    <div class="demo-message-body-block demo-message-body-block-safari display-none">
+                        <div class="demo-message-steps-back button-secondary">👈 Go Back</div>
+                        <div class="demo-message-steps-title">
+                            To install Droply from Safari:
+                        </div>
+                        
         
-                    <!-- <div class="demo-message-body-block">
-                            Are you on iOS or Android?
-                            <br><br>
-                            <div class="demo-message-block-buttons">
-                                <button class="button-primary">Android</button>
-                            </div>
-                            
-                        </div> -->
+                        <div class='demo-message-steps'>
+                            1. Tap here in the middle icon in Safari (Share button)
+                        </div>
+                        <img src="https://images2.imgbox.com/e7/cf/ioyow5AL_o.png">
+                        
+                        <div class='demo-message-steps'>
+                            2. Then tap on 'Add to Home Screen'
+                        </div>
+                        <img src="https://images2.imgbox.com/54/01/tXceSmq0_o.png">
+                        
+                        <div class='demo-message-steps'>
+                            3. After that it'll show you a confirmation screen, and tap 'Add' at the top right
+                        </div>
+                        <img src="https://images2.imgbox.com/2b/42/XPdvwFVh_o.png">
+                        
+                        <div class='demo-message-steps'>
+                            4. And that's it! Now Droply is installed on your Homescreen and you can access it anytime!
+                        </div>
+                        <img src="https://images2.imgbox.com/94/8c/bUrXHYK4_o.png">
+                        
+                    </div>
+
+                    <div class="demo-message-body-block demo-message-body-block-chrome display-none">
+                        <div class="demo-message-steps-back button-secondary">👈 Go Back</div>
+                        <div class="demo-message-steps-title">
+                            To install Droply from Chrome:
+                        </div>
+                        
+        
+                        <div class='demo-message-steps'>
+                            1. Tap here in the three dots top right (Options button)
+                        </div>
+                        <img src="https://images2.imgbox.com/cd/88/rc0Af2CR_o.png">
+                        
+                        <div class='demo-message-steps'>
+                            2. Then tap on 'Install App'
+                        </div>
+                        <img src="https://images2.imgbox.com/ff/34/OSAsZ2ce_o.png">
+                        
+                        <div class='demo-message-steps'>
+                            3. After that it'll show you a confirmation popup, and tap 'Install' at the bottom right
+                        </div>
+                        <img src="https://images2.imgbox.com/d0/86/3zlgPXeg_o.png">
+                        
+                        <div class='demo-message-steps'>
+                            4. And that's it! Now Droply is installed on your phone / tablet and you can access it
+                            anytime!
+                        </div>
+                        <img src="https://images2.imgbox.com/6f/8a/t0qHqzSz_o.png">
+                        
+                    </div>
+
+                    <div class="invisible"></div>
+
                 </div>
             </div>
         </div>
@@ -115,17 +181,18 @@
                     <span class="small-display-icon ga-home"><img src="/assets/icons/home.svg"></span>
                     <span class="small-display-text ga-home">Home</span>
                 </div>
-        
+
                 <div class="settings small-display main-button">
-                    <span class="small-display-icon ga-settings"><img src="assets/icons/user.svg" style="width:12px"></span>
+                    <span class="small-display-icon ga-settings"><img src="assets/icons/user.svg"
+                            style="width:12px"></span>
                     <span class="small-display-text ga-settings">Profile</span>
                 </div>
-        
+
                 <div class="hearts small-display">
-        
+
                 </div>
             </div>
-            
+
 
             <div class="small-displays-box small-displays-box-left">
                 <div class="currencies">
@@ -138,7 +205,7 @@
                         <span class="small-display-text">0</span>
                     </div>
                 </div>
-                
+
                 <div class="shields small-display">
                     <span class="small-display-icon"><img src="/assets/icons/shield.svg"></span>
                     <span class="small-display-text">0</span>
@@ -149,15 +216,15 @@
                     <span class="small-display-text">1</span>
                 </div>
             </div>
-    
+
 
         </div>
 
 
-        
+
 
         <div class="game-details">
-            
+
             <div class="game-details-actions">
                 <button class="game-details-action-buttons button-announcements ga-announcements"></button>
                 <button class="game-details-action-buttons button-achievements ga-awards"></button>
@@ -166,13 +233,13 @@
                 <button class="game-details-action-buttons button-guide-book ga-guide-book"></button>
             </div>
 
-            
-            
-                <button class="start ga-start button-primary">Start Game</button>
-                <div class="connectivity-alert display-none">
-                    📡 No Internet Connection
-                </div>
-                <!-- <div class="a-placement">
+
+
+            <button class="start ga-start button-primary">Start Game</button>
+            <div class="connectivity-alert display-none">
+                📡 No Internet Connection
+            </div>
+            <!-- <div class="a-placement">
                     <a href='' target="_blank">
                         <div class="a-placement-container">
                             <div class="a-placement-image ga-a-placement">
@@ -182,14 +249,14 @@
                     </a>
                 </div> -->
 
- 
-                <div class="audio-controls">
-                    <button class="music ga-music button-regular button-regular-off">🎵 Music Off</button>
-                    <button class="sfx ga-sfx button-regular button-regular-off">🔈 SFX Off</button>
-                </div>
-                <div class="loading-auto-ready-state"></div>
 
-                <small class="version-release"></small>
+            <div class="audio-controls">
+                <button class="music ga-music button-regular button-regular-off">🎵 Music Off</button>
+                <button class="sfx ga-sfx button-regular button-regular-off">🔈 SFX Off</button>
+            </div>
+            <div class="loading-auto-ready-state"></div>
+
+            <small class="version-release"></small>
         </div>
 
         <div class="player-character"><img src="/assets/characters/Characters-01.svg"></div>
@@ -217,7 +284,8 @@
 
         <div class="continue-game">
             <button class="button-primary ga-continue-game">Continue Game</button>
-            <p>No worries! You can continue the game. But don't forget to buy hearts from the shop before they're all gone!</p>
+            <p>No worries! You can continue the game. But don't forget to buy hearts from the shop before they're all
+                gone!</p>
         </div>
     </div>
 
@@ -234,19 +302,21 @@
             </div>
 
 
-            
+
             <div class="shop-window-player-name">
-                
+
                 Hello, <span class="player-name"></span>!
                 <span class="pro-user display-none">PRO <img src="/assets/images/pro-badge.svg"></span>
             </div>
 
-            <div class="shop-window-main display-none">
+            <div class="shop-window-main">
                 <div class="shop-window-main-title">
-                    New Droply Stickers Collection Out
+                    Refer & Earn! Refer 3 people and get <img src="/assets/icons/coin.svg"> <strong>70 coins!</strong>
                 </div>
                 <div class="shop-window-main-cta">
-                    <button class="shop-window-main-cta-button ga-shop-main-cta button-secondary">Check it Out</button>
+                    <a target="_blank" href="https://bit.ly/3uz2ryK"><button
+                            class="shop-window-main-cta-button ga-shop-main-cta button-secondary">👉 Tap here & Refer
+                            now</button></a>
                 </div>
             </div>
 
@@ -254,34 +324,13 @@
                 <div class="section-top">
                     <div class="section-header">
                         <span class="section-header-icon"></span>
-                        <span class="section-header-title">Special</span>
+                        <span class="section-header-title">⭐️ Special</span>
                     </div>
                 </div>
                 <div class="section-content">
                     <div class="section-content-box special">
 
-                        <!-- <div class="section-box buy-hearts-box">
-                            <div class="section-placeholder buy-hearts ga-buy-hearts"></div>
-                            <div class="section-details">
-                                <div class="section-name ga-buy-hearts">Heart</div>
-                                <span class='small-display-icon section-price-icon'><img
-                                        src='/assets/icons/coin.svg'></span>
-                                <div class="section-coins"></div>
-                            </div>
-                        </div>
 
-
-                        <div class="section-box buy-diamond-box">
-                            <div class="section-placeholder buy-diamond ga-buy-diamonds"></div>
-                            <div class="section-details">
-                                <div class="section-name ga-buy-diamonds">Diamond</div>
-                                <span class='small-display-icon section-price-icon'><img
-                                        src='/assets/icons/coin.svg'></span>
-                                <div class="section-coins"></div>
-                            </div>
-                        </div> -->
-
-                        
                     </div>
 
 
@@ -307,7 +356,7 @@
                             <div class="section-content-box characters droply-universe-characters"></div>
                         </div>
                     </div>
-        
+
                     <div class="section">
                         <div class="section-top">
                             <div class="section-header">
@@ -322,7 +371,7 @@
                 </div>
             </div>
 
-            
+
             <div class="section section-universe">
                 <div class="section-top">
                     <div class="section-header">
@@ -342,7 +391,7 @@
                             <div class="section-content-box characters darpella-characters"></div>
                         </div>
                     </div>
-        
+
                     <div class="section">
                         <div class="section-top">
                             <div class="section-header">
@@ -358,13 +407,14 @@
             </div>
 
 
-            
+
 
             <div class="section display-none">
                 <div class="section-top">
                     <div class="section-header">
                         <span class="section-header-icon"></span>
-                        <span class="section-header-title">Our Store <span class="pro-user display-none">PRO</span></span>
+                        <span class="section-header-title">Our Store <span
+                                class="pro-user display-none">PRO</span></span>
                     </div>
                 </div>
                 <div class="section-content">
@@ -397,7 +447,7 @@
                         <div class='small-display-icon section-price-icon'><img src='/assets/icons/coin.svg'></div>
                         <div class='section-coins'></div>
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -462,18 +512,19 @@
         <div class="announcement-close ga-announcements-close"></div>
 
         <div class="announcement-inner-container">
-            <div class="announcement-container-header"><img src="/assets/icons/notification.svg" width="15"> Announcements</div>
+            <div class="announcement-container-header"><img src="/assets/icons/notification.svg" width="15">
+                Announcements</div>
 
 
             <div class="announcements-container">
-                
 
-                
+
+
             </div>
-            
+
             <div class="invisible"></div>
         </div>
-        
+
     </div>
 
 
@@ -491,13 +542,14 @@
                 </div>
                 <div class="guide-book-header-title mega-window-header-title">
                     <div class="guide-book-description mega-window-description">
-                        Use this guide to learn all about Droply! We go through all the collectables, obstacles, and important elements to know in the game.
+                        Use this guide to learn all about Droply! We go through all the collectables, obstacles, and
+                        important elements to know in the game.
                     </div>
                 </div>
             </div>
 
             <div class="guide-book-body mega-window-body">
-                
+
             </div>
 
             <div class="invisible"></div>
@@ -520,9 +572,9 @@
                     </div>
                 </div>
                 <div class="achievements-header-title mega-window-header-title">
-                    
+
                     <div class="achievements-description mega-window-description">
-                        Discover how much you've played total, your stats, and your awards! 
+                        Discover how much you've played total, your stats, and your awards!
                     </div>
                 </div>
             </div>
@@ -531,83 +583,74 @@
 
                 <div class="timestamps">
 
-                        <div class="total-in-game-time timestamps-container">
-                            <div class="timestamp-title">Total time in-game:</div>
-                            <div class="timestamp-content">
-                                <div class="timestamp-days timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">days</span>
-                                </div>
-                                <div class="timestamp-hours timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">hours</span>
-                                </div>
-                                <div class="timestamp-minutes timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">minutes</span>
-                                </div>
+                    <div class="total-in-game-time timestamps-container">
+                        <div class="timestamp-title">Total time in-game:</div>
+                        <div class="timestamp-content">
+                            <div class="timestamp-days timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">days</span>
+                            </div>
+                            <div class="timestamp-hours timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">hours</span>
+                            </div>
+                            <div class="timestamp-minutes timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">minutes</span>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div class="longest-in-game-time timestamps-container">
-                            <div class="timestamp-title">Longest consecutive time spent in-game:</div>
-                            <div class="timestamp-content">
-                                <!-- <div class="timestamp-days timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">days</span>
-                                </div> -->
-                                <div class="timestamp-hours timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">hours</span>
-                                </div>
-                                <div class="timestamp-minutes timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">minutes</span>
-                                </div>
+                    <div class="longest-in-game-time timestamps-container">
+                        <div class="timestamp-title">Longest consecutive time spent in-game:</div>
+                        <div class="timestamp-content">
+
+                            <div class="timestamp-hours timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">hours</span>
+                            </div>
+                            <div class="timestamp-minutes timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">minutes</span>
                             </div>
                         </div>
-                    
+                    </div>
 
-                        <div class="played-today-time timestamps-container">
-                            <div class="timestamp-title">Today you played for:</div>
-                            <div class="timestamp-content">
-                                <!-- <div class="timestamp-days timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">days</span>
-                                </div> -->
-                                <div class="timestamp-minutes timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">minutes</span>
-                                </div>
-                                <div class="timestamp-seconds timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">seconds</span>
-                                </div>
+
+                    <div class="played-today-time timestamps-container">
+                        <div class="timestamp-title">Today you played for:</div>
+                        <div class="timestamp-content">
+
+                            <div class="timestamp-minutes timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">minutes</span>
+                            </div>
+                            <div class="timestamp-seconds timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">seconds</span>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div class="play-total-time timestamps-container">
-                            <div class="timestamp-title">Your highest play record is:</div>
-                            <div class="timestamp-content">
-                                <!-- <div class="timestamp-days timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">days</span>
-                                </div> -->
-                                <div class="timestamp-minutes timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">minutes</span>
-                                </div>
-                                <div class="timestamp-seconds timestamp-time">
-                                    <span class="timestamp-number"></span>
-                                    <span class="timestamp-text">seconds</span>
-                                </div>
+                    <div class="play-total-time timestamps-container">
+                        <div class="timestamp-title">Your highest play record is:</div>
+                        <div class="timestamp-content">
+
+                            <div class="timestamp-minutes timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">minutes</span>
+                            </div>
+                            <div class="timestamp-seconds timestamp-time">
+                                <span class="timestamp-number"></span>
+                                <span class="timestamp-text">seconds</span>
                             </div>
                         </div>
-                    
+                    </div>
+
                 </div>
-                
+
             </div>
 
             <div class="invisible"></div>
@@ -631,29 +674,44 @@
                 <div class="settings-section-title"><img src="/assets/icons/coin.svg"> Referral Program</div>
                 <div class="refer-status">
                     <h4>Refer 3 People</h4>
-                    <div class="can-refer">Refer 3 people and get <img src="/assets/icons/coin.svg"> <strong>70 coins</strong>!
+                    <div class="can-refer">Refer 3 people and get <img src="/assets/icons/coin.svg"> <strong>70
+                            coins</strong>!
                         <br>
-                        <a target="_blank" href="https://forms.gle/kn66VJZKwiyZv29R9"><button class="refer-now ga-refer-button button-regular">Refer Now!</button></a>
+                        <a target="_blank" href="https://bit.ly/3uz2ryK"><button
+                                class="refer-now ga-refer-button button-regular">Refer Now!</button></a>
                     </div>
-                    <div class="refer-used display-none">You have successfully referred 3 people and have received <img src="/assets/icons/coin.svg"> 70 coins!</div>
+                    <div class="refer-used display-none">You have successfully referred 3 people and have received <img
+                            src="/assets/icons/coin.svg"> 70 coins!</div>
                 </div>
                 <br>
                 <div class="referred-status">
                     <h4>Get Referred</h4>
-                    <div class="not-referred">If someone refers you, you will get <img src="/assets/icons/coin.svg"> <strong>20 coins</strong>! Let them know!</div>
-                    <div class="referred display-none">Someone referred you and you got <img src="/assets/icons/coin.svg"> 20 coins! </div>
+                    <div class="not-referred">If someone refers you, you will get <img src="/assets/icons/coin.svg">
+                        <strong>20 coins</strong>! Let them know!</div>
+                    <div class="referred display-none">Someone referred you and you got <img
+                            src="/assets/icons/coin.svg"> 20 coins! </div>
                 </div>
-                
+
 
             </div>
 
             <div class="settings-section">
                 <div class="settings-section-title">☔️ Help & Support</div>
-                <a href="help/help.html#OurStory"><div class="settings-title ga-our-story">Our Story</div></a>
-                <a href="help/help.html#FAQ"><div class="settings-title ga-faq">Frequently Asked Questions</div></a>
-                <a href="help/help.html"><div class="settings-title ga-our-story">Help Section</div></a>
-                <a href="mailto:hellodroplyteam@gmail.com"><div class="settings-title ga-contact-us">Contact Us</div></a>
-                <a href="mailto:hellodroplyteam@gmail.com"><div class="settings-title ga-report-bug">Report a Bug</div></a>
+                <a href="help/help.html#OurStory">
+                    <div class="settings-title ga-our-story">Our Story</div>
+                </a>
+                <a href="help/help.html#FAQ">
+                    <div class="settings-title ga-faq">Frequently Asked Questions</div>
+                </a>
+                <a href="help/help.html">
+                    <div class="settings-title ga-our-story">Help Section</div>
+                </a>
+                <a href="mailto:hellodroplyteam@gmail.com">
+                    <div class="settings-title ga-contact-us">Contact Us</div>
+                </a>
+                <a href="mailto:hellodroplyteam@gmail.com">
+                    <div class="settings-title ga-report-bug">Report a Bug</div>
+                </a>
             </div>
 
             <div class="settings-section">
@@ -661,16 +719,19 @@
                 <div class="unique-id-number"></div>
             </div>
 
-            <div class="settings-section my-data display-none">
-                <div class="settings-section-title">⭐️ My Data <span class="pro-user display-none">PRO</span></div>
+            <div class="settings-section my-data">
+                <div class="settings-section-title">⭐️ My Data</div>
                 <div class="settings-sub-section">
-                    <h5>Export Data</h5>
+                    <h5>Download Data</h5>
+                    <p>Download your data and keep it safe if you need to retrieve it all back.</p>
                     <button class="button-regular ga-export-data export-my-data">🌧 Download My Data</button>
                 </div>
 
 
                 <div class="settings-sub-section">
                     <h5>Import Data</h5>
+                    <p>If this a completely new Droply game you can upload the data you previously downloaded and get
+                        all your coins and diamonds and purchases back.</p>
                     <label for="file-upload" class="button-regular ga-import-data custom-file-upload import-my-data">
                         ☁️ Upload My Data
                     </label>
@@ -692,20 +753,22 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="module" src="/js/logic.js"></script>
-    
+
     <script>
-         if ('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator) {
             console.log("Will the service worker register?");
             navigator.serviceWorker.register('service-worker.js')
-              .then(function(reg){
-                console.log("Yes, it did.");
-             }).catch(function(err) {
-                console.log("No it didn't. This happened:", err)
-            });
-         }
+                .then(function (reg) {
+                    console.log("Yes, it did.");
+                }).catch(function (err) {
+                    console.log("No it didn't. This happened:", err)
+                });
+        }
     </script>
 
 </body>
+
 </html>
