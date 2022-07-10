@@ -23,8 +23,8 @@ import * as GuideBook from '../data/guidebook.js';
 // Constants
 const OBSTACLES = 15;
 const OBSTACLES_MAX_Y = 5000;
-const TIME = 130;
-const SPEED_INCREASE = 12;
+const TIME = 150;
+const SPEED_INCREASE = 30;
 const COIN_ABUNDANCE = 0.5;
 const SHIELD_ABUNDANCE = 0.1;
 const POUCH_ABUNDANCE = 0.1;
@@ -131,7 +131,7 @@ $(document).ready(function(){
         ActivateDemo();
     }
 
-    let version_release = "droply 1.4.15";
+    let version_release = "droply 1.4.16";
     $(".version-release").text(version_release);
 
     $(".music").click(function(){
@@ -969,7 +969,13 @@ function FloatObstacles(){
 
 
     HighestVelocity = temphighvel*1000;
-    SpeedIncrease += SPEED_INCREASE;
+
+
+
+    if(SpeedIncrease < 160){
+        console.log(SpeedIncrease)
+        SpeedIncrease += SPEED_INCREASE
+    }
 
 
 }
@@ -983,8 +989,6 @@ function PlayTimeCounter(){
     }
 
     Player.UpdateLastPlayedTimestamp(playtimecounter);
-
-    console.log(playtimecounter);
 }
 
 function Loop() {
